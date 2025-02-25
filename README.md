@@ -39,7 +39,7 @@ The system employs a three-tier architecture:
 3. **🔎 Search Layer**: Performs high-performance similarity searches and generates detailed reports
 
 <p align="center">
-  <img src="docs/images/architecture.png" alt="System Architecture" width="600"/>
+  <img src="docs/images/architecture.jpg" alt="System Architecture" width="600"/>
 </p>
 
 ## 🚀 Installation
