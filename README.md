@@ -73,17 +73,19 @@ The system employs a three-tier architecture:
 
 ## 📥 Installation
 
-### Prerequisites
+### 🛠️ Prerequisites
 
-- Python 3.8+
-- PostgreSQL 12+
-- Milvus 2.x
-- Docker & Docker Compose
-- 8GB+ RAM recommended
+- 🐍 **Python** `3.8+` - Core programming language
+- 🐘 **PostgreSQL** `12+` - Relational database for metadata
+- 🔍 **Milvus** `2.x` - Vector database for similarity search
+- 🐳 **Docker & Docker Compose** - Container management
+- 💾 **RAM** `8GB+` - Recommended for optimal performance
+- 💻 **CPU** `4+ cores` - For parallel processing
+- 🖴 **Storage** `10GB+` - For document storage and embeddings
 
-### Database Setup
+### 🗃️ Database Setup
 
-1. **PostgreSQL Setup**
+1. 🐘 **PostgreSQL Setup**
    ```bash
    # Start PostgreSQL service
    docker run -d \
@@ -95,7 +97,7 @@ The system employs a three-tier architecture:
      postgres:12
    ```
 
-2. **Milvus Setup**
+2. 🔍 **Milvus Setup**
    ```bash
    # Download Milvus docker-compose file
    wget https://github.com/milvus-io/milvus/releases/download/v2.3.3/milvus-standalone-docker-compose.yml -O docker-compose.yml
@@ -104,26 +106,26 @@ The system employs a three-tier architecture:
    docker-compose up -d
    ```
 
-### Project Setup
+### ⚙️ Project Setup
 
-1. **Clone Repository**
+1. 📦 **Clone Repository**
    ```bash
    git clone https://github.com/drkhanusa/DNU_PlagiarismChecker.git
    cd DNU_PlagiarismChecker
    ```
 
-2. **Create Virtual Environment**
+2. 🌟 **Create Virtual Environment**
    ```bash
    python -m venv venv
    source venv/bin/activate  # Windows: venv\Scripts\activate
    ```
 
-3. **Install Dependencies**
+3. 📚 **Install Dependencies**
    ```bash
    pip install -e .
    ```
 
-4. **Environment Configuration**
+4. ⚡ **Environment Configuration**
    ```bash
    # Copy example environment file
    cp .env.example .env
@@ -135,7 +137,7 @@ The system employs a three-tier architecture:
    MILVUS_PORT=19530
    ```
 
-5. **Initialize Database**
+5. 🔄 **Initialize Database**
    ```bash
    # Create database tables
    python setup_database.py
@@ -146,7 +148,7 @@ The system employs a three-tier architecture:
 
 ## 🚀 Getting Started
 
-### Quick Start
+### ⚡ Quick Start
 ```python
 from plagiarism_checker import check_plagiarism_details
 
@@ -162,7 +164,7 @@ for doc in results['data']['similarity_documents']:
     print(f"Match: {doc['name']} - {doc['similarity_value']}%")
 ```
 
-### Adding Documents to Database
+### 📥 Adding Documents to Database
 ```python
 from create_corpus import CorpusCreator
 
@@ -173,10 +175,10 @@ creator.process_document("path/to/document.pdf")
 ## 📚 Documentation
 
 For detailed documentation, please visit our [Wiki](https://github.com/drkhanusa/DNU_PlagiarismChecker/wiki) or refer to the following sections:
-- [Installation Guide](docs/installation.md)
-- [User Manual](docs/user-manual.md)
-- [API Reference](docs/api-reference.md)
-- [Contributing Guidelines](docs/contributing.md)
+- 📖 [Installation Guide](docs/installation.md)
+- 👥 [User Manual](docs/user-manual.md)
+- 🔧 [API Reference](docs/api-reference.md)
+- 🤝 [Contributing Guidelines](docs/contributing.md)
 
 ## 📝 License
 
