@@ -1,3 +1,7 @@
+# Environment variables
+.env
+.env.*
+
 # Python
 __pycache__/
 *.py[cod]
@@ -19,16 +23,11 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-MANIFEST
 
-# Virtual Environment
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
+# Temporary files
+temp/
+*.tmp
+*.temp
 
 # IDE
 .idea/
@@ -41,7 +40,6 @@ venv.bak/
 config.yaml
 *.log
 logs/
-temp/
 uploads/
 results/
 *.db
