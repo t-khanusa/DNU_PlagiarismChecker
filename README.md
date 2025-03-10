@@ -1,36 +1,37 @@
-# DaiNam University Plagiarism Detection System 🚀
+# 🎓 DaiNam University Plagiarism Detection System
+
+<div align="center">
 
 <p align="center">
   <img src="docs/images/logo.png" alt="DaiNam University Logo" width="200"/>
 </p>
 
+[![Made by AIoTLab](https://img.shields.io/badge/Made%20by-AIoTLab-blue?style=for-the-badge)](https://fit.dainam.edu.vn)
+[![DaiNam University](https://img.shields.io/badge/DaiNam-University-red?style=for-the-badge)](https://dainam.edu.vn)
+[![Faculty of IT](https://img.shields.io/badge/Faculty%20of-Information%20Technology-green?style=for-the-badge)](https://fit.dainam.edu.vn)
+
+</div>
+
+<h3 align="center">🔬 Advanced Academic Integrity Through AI Innovation</h3>
+
 <p align="center">
-  <strong>An advanced plagiarism detection system for the Faculty of Information Technology</strong>
+  <strong>A Next-Generation Plagiarism Detection System Powered by Deep Learning and Vector Search Technology</strong>
 </p>
 
 <p align="center">
-  <a href="#features">Features</a> •
-  <a href="#architecture">Architecture</a> •
-  <a href="#installation">Installation</a> •
-  <a href="#usage">Usage</a> •
-  <a href="#configuration">Configuration</a> •
-  <a href="#license">License</a>
+  <a href="#-architecture">Architecture</a> •
+  <a href="#-key-features">Features</a> •
+  <a href="#-tech-stack">Tech Stack</a> •
+  <a href="#-installation">Installation</a> •
+  <a href="#-getting-started">Getting Started</a> •
+  <a href="#-documentation">Docs</a>
 </p>
-
-## 📋 Overview
-
-This system was developed for the Faculty of Information Technology at DaiNam University to detect plagiarism in students' graduation projects. It uses state-of-the-art vector similarity search technology to identify potential instances of plagiarism by comparing submitted documents against a comprehensive database of previous works.
-
-## ✨ Features
-
-- **🔍 High-Precision Detection**: Utilizes sentence-level semantic embeddings to detect plagiarism even when text has been paraphrased
-- **🇻🇳 Vietnamese Language Support**: Optimized for Vietnamese text processing with specialized tokenization
-- **📈 Scalable Architecture**: Built on Milvus vector database for efficient similarity search across thousands of documents
-- **📊 Detailed Reporting**: Provides comprehensive reports showing similarity percentages and exact matching passages
-- **⚡ Batch Processing**: Efficiently processes large documents through optimized batch operations
-- **🎛️ Configurable Thresholds**: Adjustable similarity thresholds to control detection sensitivity
 
 ## 🏗️ Architecture
+
+<p align="center">
+  <img src="docs/images/architecture.JPG" alt="System Architecture" width="800"/>
+</p>
 
 The system employs a three-tier architecture:
 
@@ -38,100 +39,155 @@ The system employs a three-tier architecture:
 2. **💾 Storage Layer**: Stores document metadata in PostgreSQL and vector embeddings in Milvus
 3. **🔎 Search Layer**: Performs high-performance similarity searches and generates detailed reports
 
-<p align="center">
-  <img src="docs/images/architecture.JPG" alt="System Architecture"/>
-</p>
+## ✨ Key Features
 
-## 🚀 Installation
+### 🧠 Advanced AI Technology
+- **Semantic Analysis Engine**: Powered by state-of-the-art transformer models
+- **Multi-lingual Support**: Optimized for Vietnamese and English content
+- **Context-Aware Detection**: Understanding beyond simple text matching
+
+### ⚡ High-Performance Architecture
+- **Vector Search Technology**: Using Milvus for lightning-fast similarity search
+- **Parallel Processing**: Efficient handling of large document collections
+- **Scalable Infrastructure**: Designed for institutional deployment
+
+### 📊 Comprehensive Analysis
+- **Visual Results**: Interactive visualization of matched content
+- **Detailed Reports**: Page-by-page similarity analysis
+- **Evidence Mapping**: Precise location of potential matches
+
+## 🔧 Tech Stack
+
+<div align="center">
+
+### Core Technologies
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+
+### Database Systems
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![Milvus](https://img.shields.io/badge/Milvus-00A1EA?style=for-the-badge&logo=milvus&logoColor=white)
+
+</div>
+
+## 📥 Installation
 
 ### Prerequisites
 
 - Python 3.8+
 - PostgreSQL 12+
 - Milvus 2.x
+- Docker & Docker Compose
 - 8GB+ RAM recommended
 
-### Setup
+### Database Setup
 
-1. Clone the repository:
-```bash
-git clone https://github.com/drkhanusa/PlagiarismChecker.git
-cd PlagiarismChecker
-```
+1. **PostgreSQL Setup**
+   ```bash
+   # Start PostgreSQL service
+   docker run -d \
+     --name postgres \
+     -e POSTGRES_USER=similarity \
+     -e POSTGRES_PASSWORD=123456 \
+     -e POSTGRES_DB=Sentence_Similarity \
+     -p 5434:5432 \
+     postgres:12
+   ```
 
-2. Create and activate a virtual environment:
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+2. **Milvus Setup**
+   ```bash
+   # Download Milvus docker-compose file
+   wget https://github.com/milvus-io/milvus/releases/download/v2.3.3/milvus-standalone-docker-compose.yml -O docker-compose.yml
 
-3. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+   # Start Milvus
+   docker-compose up -d
+   ```
 
-4. Configure database connections in `config.yaml`
+### Project Setup
 
-5. Initialize the database:
-```bash
-python setup_database.py
-```
+1. **Clone Repository**
+   ```bash
+   git clone https://github.com/drkhanusa/DNU_PlagiarismChecker.git
+   cd DNU_PlagiarismChecker
+   ```
 
-## 🔧 Usage
+2. **Create Virtual Environment**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # Windows: venv\Scripts\activate
+   ```
 
-### Adding Documents to the Database
+3. **Install Dependencies**
+   ```bash
+   pip install -e .
+   ```
 
-```bash
-python add_document.py --path /path/to/documents/folder
-```
+4. **Environment Configuration**
+   ```bash
+   # Copy example environment file
+   cp .env.example .env
 
-### Checking a Document for Plagiarism
+   # Edit .env with your settings
+   # Example configuration:
+   DATABASE_URL=postgresql://similarity:123456@localhost:5434/Sentence_Similarity
+   MILVUS_HOST=localhost
+   MILVUS_PORT=19530
+   ```
 
+5. **Initialize Database**
+   ```bash
+   # Create database tables
+   python setup_database.py
+
+   # Initialize Milvus collection
+   python create_milvus_db.py
+   ```
+
+## 🚀 Getting Started
+
+### Quick Start
 ```python
-from plagiarism_checker import check_plagiarism
+from plagiarism_checker import check_plagiarism_details
 
-results = check_plagiarism("/path/to/document.pdf", min_similarity=0.9)
-print(f"Similarity: {results['total_similarity_percent']}%")
+# Check a document
+results = check_plagiarism_details(
+    file_path="path/to/document.pdf",
+    min_similarity=0.9
+)
 
-# Print top similar documents
-for doc, score in zip(results['top_similarity_documents'], results['top_similarity_values']):
-    print(f"- {doc}: {score:.2f}%")
+# View results
+print(f"Overall Similarity: {results['data']['total_percent']}%")
+for doc in results['data']['similarity_documents']:
+    print(f"Match: {doc['name']} - {doc['similarity_value']}%")
 ```
 
-### Running the Web Interface
+### Adding Documents to Database
+```python
+from create_corpus import CorpusCreator
 
-```bash
-python app.py
+creator = CorpusCreator()
+creator.process_document("path/to/document.pdf")
 ```
 
-Then access the web interface at http://localhost:5000
+## 📚 Documentation
 
-## ⚙️ Configuration
-
-The system can be configured through the `config.yaml` file:
-
-```yaml
-database:
-  postgres:
-    host: localhost
-    port: 5432
-    user: postgres
-    password: password
-    database: plagiarism_db
-  
-  milvus:
-    host: localhost
-    port: 19530
-    collection: sentence_vectors
-
-processing:
-  batch_size: 64
-  min_similarity: 0.9
-  embedding_model: "./embedding_models/snapshots/ca1bafe673133c99ee38d9782690a144758cb338"
-```
+For detailed documentation, please visit our [Wiki](https://github.com/drkhanusa/DNU_PlagiarismChecker/wiki) or refer to the following sections:
+- [Installation Guide](docs/installation.md)
+- [User Manual](docs/user-manual.md)
+- [API Reference](docs/api-reference.md)
+- [Contributing Guidelines](docs/contributing.md)
 
 ## 📝 License
 
-© 2023 Faculty of Information Technology, DaiNam University. All rights reserved.
+© 2024 AIoTLab, Faculty of Information Technology, DaiNam University. All rights reserved.
 
-This software is proprietary and confidential. Unauthorized copying, distribution, or use is strictly prohibited.
+---
+
+<div align="center">
+
+### Made with 💻 by AIoTLab at DaiNam University
+
+[Website](https://fit.dainam.edu.vn) • [GitHub](https://github.com/drkhanusa) • [Contact Us](mailto:contact@dainam.edu.vn)
+
+</div>
