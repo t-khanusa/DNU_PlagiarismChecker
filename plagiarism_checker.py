@@ -1,192 +1,327 @@
-from sentence_transformers import SentenceTransformer
-from pymilvus import Collection, connections
-from sqlalchemy.orm import Session
+from postgreSQL.postgre_database import SessionLocal, PDFFile, Sentence
+from get_pdffile_aws import read_presigned_url
+from fastapi.responses import JSONResponse
+from create_milvus_db import collection
+from create_corpus import CorpusCreator
 from typing import List, Dict, Tuple
 import numpy as np
 import fitz
 import time
 from tqdm import tqdm
 import os
-import re
-import nltk
-from pyvi.ViTokenizer import tokenize
+from fastapi import FastAPI
+import uvicorn
 
-from postgreSQL.postgre_database import SessionLocal, PDFFile, Sentence, engine
-from create_milvus_db import collection
-from create_corpus import CorpusCreator
-from sklearn.metrics.pairwise import cosine_similarity
 
-checker = CorpusCreator("./embedding_models/snapshots/ca1bafe673133c99ee38d9782690a144758cb338")
+app = FastAPI()
+checker = CorpusCreator()
 
-def check_plagiarism(file_path: str, min_similarity: float = 0.9) -> Dict:
+
+def check_box(doc, sentences):    
+    # Mapping of sentences to their locations
+    sentence_locations = {}
+
+    # Track which sentences we've found
+    found_sentences = set()
+    
+    # First pass: try direct search which is faster
+    for page_num, page in enumerate(doc):
+        for sentence in sentences:
+            if sentence in found_sentences:
+                continue
+    
+            # Direct search for exact matches
+            text_instances = page.search_for(sentence)
+            if text_instances:
+                if sentence not in sentence_locations:
+                    sentence_locations[sentence] = []
+                
+                # Format the rectangles
+                rects = [[float(rect.x0), float(rect.y0), float(rect.x1), float(rect.y1)] 
+                        for rect in text_instances]
+                
+                sentence_locations[sentence].append({
+                    "page_num": page_num,
+                    "rects": rects
+                })
+                
+                found_sentences.add(sentence)
+    return sentence_locations
+
+@app.get("/plagiarism_checker/")
+async def check_plagiarism(subject_id: str, file_name: str, min_similarity: float = 0.9) -> Dict:
     """
-    Check document for plagiarism against Milvus database
+    Check document for plagiarism against the vector database.
+    
     Args:
-        file_path: Path to the PDF file to check
+        subject_id: Subject ID
+        file_name: File name
         min_similarity: Minimum similarity threshold (default 0.9)
-    Returns: Dict with plagiarism information:
-    {
-        "total_similarity_percent": float,
-        "top_similarity_documents": List[str],
-        "top_similarity_values": List[float],
-        "similarity_sentences": Dict[str, List[Dict]]
-    }
+
+    Returns: 
+        "total_percent": float,
     """
-    start_time = time.time()
-    print(f"Processing document: {os.path.basename(file_path)}")
+
+    try:
+        file_path = read_presigned_url(subject_id, file_name)
+    except Exception as e:
+        return {"error": "No valid file path found"}
 
     # Process document to get sentences and embeddings
-    sentences, embeddings = checker.process_document(file_path)
-    
-    # # Debug: Check if vectors are identical when processing same file twice
-    # _, embeddings2 = checker.process_document(file_path)
-    # cos = cosine_similarity(embeddings2, embeddings)
-    # print(cos.shape)
-    # # Count values > 0.9 in each column
-    # # Get max value in each column
-    # max_values = np.max(cos, axis=0)
+    raw_sentences, embeddings = checker.process_document(file_path)
 
-    # # Create mask of same shape as cos, initialized to zeros
-    # mask = np.zeros_like(cos)
+    if not raw_sentences:
+        return {"error": "No valid raw_sentences found in document"}    
+    print(f"Number of raw_sentences processed: {len(raw_sentences)}")
 
-    # # For each column, set True only for the max value position
-    # for col in range(cos.shape[1]):
-    #     max_idx = np.argmax(cos[:, col])
-    #     mask[max_idx, col] = True
-
-    # # Apply mask to keep only max values, rest become 0
-    # filtered_cos = np.where(mask, cos, 0)
-
-    # # Count values > 0.9 in each column
-    # high_similarity_counts = np.sum(filtered_cos > 0.9, axis=0)
-
-    # # print("\nNumber of high similarity matches (>0.9) per sentence in document 2:")
-    # # for i, count in enumerate(high_similarity_counts):
-    # #     if count > 0:
-    # #         print(f"Sentence {i+1}: {count} matches")
-
-    # total_matches = np.sum(high_similarity_counts)
-    # print(f"\nTotal number of high similarity matches: {total_matches}")
-    # print(f"Average matches per sentence: {total_matches/len(high_similarity_counts):.2f}")
-    
-    if not sentences:
-        return {"error": "No valid sentences found in document"}
-    print(f"Number of sentences processed: {len(sentences)}")
-
-    # Initialize results
-    similarity_sentences_dict = {}
-    document_matches = {}  # Track matches per document
-
+    # Configure search parameters for vector search
     search_params = {
         "metric_type": "COSINE",
-        "params": {
-            "nprobe": 10,  # Increase from 10 to search more segments
-            # "ef": 100      # Add ef parameter to improve recall
-        }
+        "params": {"nprobe": 10}
     }
-    batches = 64
+    
     # Process in batches with progress bar
-    with tqdm(total=len(sentences), desc="Checking for plagiarism") as pbar:
-        for i in range(0, len(sentences), batches):
-            batch_end = min(i + batches, len(sentences))
-            batch_vectors = embeddings[i:batch_end].tolist()
-            
-            # Search Milvus database
-            search_results = collection.search(
-                data=batch_vectors,
-                anns_field="sentence_vector",
-                param=search_params,
-                limit=1,
-                output_fields=["pdf_id", "sentence_id"]
-            )
+    batch_size = len(raw_sentences)
+    matched_sentence_set = set()
+    # with tqdm(total=len(raw_sentences), desc="Checking for plagiarism") as pbar:
+    for i in range(0, len(raw_sentences), batch_size):
+        batch_end = min(i + batch_size, len(raw_sentences))
+        batch_vectors = embeddings[i:batch_end].tolist()
+        
+        start_search = time.time()
+        # Search Milvus database
+        search_results = collection.search(
+            data=batch_vectors,
+            anns_field="sentence_vector",
+            param=search_params,
+            limit=1,
+            output_fields=["pdf_id", "sentence_id"]
+        )
+        end_search = time.time()
+        print(f"Time taken to search Milvus: {end_search - start_search:.2f} seconds")
 
-            # Process results
-            with SessionLocal() as db:
-                for idx, hits in enumerate(search_results):
-                    sentence_idx = i + idx
-                    current_sentence = sentences[sentence_idx]
-                    
-                    # # Debug print for each search result
-                    # print(f"\nSearching sentence {sentence_idx + 1}/{len(sentences)}")
-                    # print(f"Original sentence: {current_sentence[:100]}...")
-                    # print(f"Search hits: {hits}")
-                    
-                    for hit in hits:
-                        similarity_score = float(hit.distance)
-                        # print(f"Similarity score: {similarity_score}")
-                        
-                        if similarity_score >= min_similarity:
-                            pdf_id = hit.entity.get('pdf_id')
-                            sentence_id = hit.entity.get('sentence_id')
-                            # print(f"Match found - PDF ID: {pdf_id}, Sentence ID: {sentence_id}")
-                            
-                            pdf_file = db.query(PDFFile).filter(PDFFile.pdf_id == pdf_id).first()
-                            sentence = db.query(Sentence).filter(Sentence.id == sentence_id).first()
-                            
-                            if pdf_file and sentence:
-                                # Track document-level matches
-                                if pdf_file.filename not in document_matches:
-                                    document_matches[pdf_file.filename] = []
-                                document_matches[pdf_file.filename].append(similarity_score)
-                                
-                                # Add to sentence-level matches
-                                if current_sentence not in similarity_sentences_dict:
-                                    similarity_sentences_dict[current_sentence] = []
-                                
-                                similarity_sentences_dict[current_sentence].append({
-                                    'document': pdf_file.filename,
-                                    'similarity_score': similarity_score,
-                                    'matched_text': sentence.sentence
-                                })
-                        else:
-                            print(f"Score {similarity_score} below threshold {min_similarity}")
+        for idx, hits in enumerate(search_results):
+            sentence_idx = i + idx
+            current_sentence = raw_sentences[sentence_idx]
             
-            pbar.update(batch_end - i)
+            for hit in hits:
+                similarity_score = float(hit.distance)
+                
+                if similarity_score >= min_similarity:
+                    matched_sentence_set.add(current_sentence)
+    return JSONResponse(content={"total_percent": len(matched_sentence_set) / len(raw_sentences) * 100}, status_code=200)
 
-    # Calculate document-level statistics
-    doc_similarity_percentages = {}
-    for doc, scores in document_matches.items():
-        # Calculate percentage of matching sentences for each document
-        matching_sentences = len(scores)
-        percentage = (matching_sentences / len(sentences)) * 100
-        doc_similarity_percentages[doc] = {
-            'percentage': percentage,
-            'matching_sentences': matching_sentences,
-            'total_sentences': len(sentences)
+
+@app.get("/plagiarism_checker_details/")    
+async def check_plagiarism_details(subject_id: str, file_name: str, min_similarity: float = 0.9) -> Dict:
+    """
+    Check document for plagiarism against the vector database.
+    
+    Args:
+        subject_id: Subject ID
+        file_name: File name
+        min_similarity: Minimum similarity threshold (default 0.9)
+        
+    Returns: 
+        Dict with plagiarism information in the format required for visualization:
+        {
+            "data": {
+                "total_percent": float,
+                "size_page": {"width": float, "height": float},
+                "similarity_documents": [
+                    {
+                        "name": str,
+                        "similarity_value": int,
+                        "similarity_box_sentences": [
+                            {
+                                "pageNumber": int,
+                                "similarity_content": [
+                                    {
+                                        "content": str,
+                                        "rects": [[float, float, float, float], ...]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
         }
+    """
+    start_time = time.time()
+    try:
+        file_path = read_presigned_url(subject_id, file_name)
+    except Exception as e:
+        return {"error": "No valid file path found"}
 
-    # Get top 5 similar documents based on percentage of matching sentences
-    top_docs = sorted(doc_similarity_percentages.items(), 
-                     key=lambda x: x[1]['percentage'], 
-                     reverse=True)[:5]
-    
-    top_similarity_documents = [doc for doc, _ in top_docs]
-    top_similarity_values = [stats['percentage'] for _, stats in top_docs]
+    filename = os.path.basename(file_path)
+    # Process document to get sentences and embeddings
+    raw_sentences, embeddings = checker.process_document(file_path)
 
-    # Calculate total similarity percentage (number of matched sentences / total sentences)
-    total_similarity_percent = (len(similarity_sentences_dict) / len(sentences)) * 100
+    if not raw_sentences:
+        return {"error": "No valid raw_sentences found in document"}    
+    print(f"Number of raw_sentences processed: {len(raw_sentences)}")
 
-    # Print summary statistics
-    print(f"\nPlagiarism Check Summary:")
-    print(f"Total sentences in document: {len(sentences)}")
-    print(f"Sentences with matches above {min_similarity}: {len(similarity_sentences_dict)}")
-    print(f"Total similarity percentage: {total_similarity_percent:.2f}%")
-    print(f"\nTop {len(top_docs)} similar documents (by percentage of matching sentences):")
-    for doc, stats in top_docs:
-        print(f"- {doc}: {stats['percentage']:.2f}% "
-              f"({stats['matching_sentences']} matching sentences out of {stats['total_sentences']} total)")
+    # Get document page size and prepare for text extraction
+    try:
+        document = fitz.open(file_path)
+        page_size = {"width": document[0].rect.width, "height": document[0].rect.height}
+    except Exception as e:
+        print(f"Error opening PDF: {e}")
+        page_size = {"width": 595.0, "height": 842.0}  # Default A4 size
+        document = None
 
-    # If less than 5 documents were found, print a note
-    if len(top_docs) < 5:
-        print(f"\nNote: Only {len(top_docs)} documents had matches above the similarity threshold ({min_similarity})")
-    
-    return {
-        "total_similarity_percent": total_similarity_percent,
-        "top_similarity_documents": top_similarity_documents,
-        "top_similarity_values": top_similarity_values,  # These are now percentages
-        "similarity_sentences": similarity_sentences_dict,
-        "processing_time": time.time() - start_time
+    # Configure search parameters for vector search
+    search_params = {
+        "metric_type": "COSINE",
+        "params": {"nprobe": 10}
     }
+    
+    # Initialize results containers
+    document_matches = {}
+    # Process in batches with progress bar
+    batch_size = len(raw_sentences)
+    matched_sentence_set = set()
+    # with tqdm(total=len(raw_sentences), desc="Checking for plagiarism") as pbar:
+    for i in range(0, len(raw_sentences), batch_size):
+        batch_end = min(i + batch_size, len(raw_sentences))
+        batch_vectors = embeddings[i:batch_end].tolist()
+        
+        start_search = time.time()
+        # Search Milvus database
+        search_results = collection.search(
+            data=batch_vectors,
+            anns_field="sentence_vector",
+            param=search_params,
+            limit=1,
+            output_fields=["pdf_id", "sentence_id"]
+        )
+        end_search = time.time()
+        print(f"Time taken to search Milvus: {end_search - start_search:.2f} seconds")
+
+        with SessionLocal() as db:
+            for idx, hits in enumerate(search_results):
+                sentence_idx = i + idx
+                current_sentence = raw_sentences[sentence_idx]
+                
+                for hit in hits:
+                    similarity_score = float(hit.distance)
+                    
+                    if similarity_score >= min_similarity:
+                        pdf_id = hit.entity.get('pdf_id')
+                        
+                        # Retrieve matching document
+                        pdf_file = db.query(PDFFile).filter(PDFFile.pdf_id == pdf_id).first()
+
+                        if pdf_file.filename not in document_matches:
+                            document_matches[pdf_file.filename] = []
+                        document_matches[pdf_file.filename].append(current_sentence) 
+                        matched_sentence_set.add(current_sentence)
+            
+
+    # Get top 5 similar documents
+    top_docs = sorted(document_matches.items(), 
+                     key=lambda x: len(x[1]), 
+                     reverse=True)[:5]  # Limit to top 5
+
+    # Initialize similarity_documents list to store all document matches
+    similarity_documents = []
+    
+    # Calculate total number of sentences for percentage calculation
+    total_sentences = len(raw_sentences)
+    
+    for docs in top_docs:
+        (filename, matched_sentences) = docs
+
+        # Process each sentence that matches with this document
+        sentence_locations = check_box(document, matched_sentences)
+
+        # Initialize page_sentences dictionary to store sentences by page number
+        page_sentences = {}
+        
+        # Process each matched sentence and its locations
+        for sentence, locations in sentence_locations.items():
+            # Skip if no locations found for this sentence
+            if not locations:
+                continue
+                
+            # Process each location where this sentence was found
+            for location in locations:
+                page_num = location["page_num"]
+                
+                if page_num not in page_sentences:
+                    page_sentences[page_num] = []
+                
+                # Check if this sentence is already added to this page
+                found = False
+                for existing in page_sentences[page_num]:
+                    if existing['content'] == sentence:
+                        found = True
+                        break
+                
+                if not found:
+                    page_sentences[page_num].append({
+                        'content': sentence,
+                        'rects': location["rects"]
+                    })
+        
+        # Format page sentences for output
+        similarity_box_sentences = []
+        for page_num, sentences in sorted(page_sentences.items()):
+            similarity_box_sentences.append({
+                'pageNumber': page_num,
+                'similarity_content': sentences
+            })
+        
+        # Calculate similarity percentage based on number of matched sentences
+        similarity_value = 0
+        if total_sentences > 0:
+            # Count total sentences found in this document
+            total_matched = len(matched_sentences)
+            similarity_value = int((total_matched / total_sentences) * 100)
+            # Cap at 100%
+            similarity_value = min(similarity_value, 100)
+        
+        # Add document to similarity documents
+        similarity_documents.append({
+            'name': filename,
+            'similarity_value': similarity_value,
+            'similarity_box_sentences': similarity_box_sentences
+        })
+    
+    # Get page size from the document
+    page_size = {"width": 595.0, "height": 842.0}  # Default A4 size
+    if document and hasattr(document, 'mediabox'):
+        page_size = {
+            "width": document.mediabox[2],
+            "height": document.mediabox[3]
+        }
+    
+    # Format final output
+    result = {
+        "data": {
+            "total_percent": len(matched_sentence_set) / total_sentences * 100,  # Always 100% for the document being checked
+            "size_page": page_size,
+            "similarity_documents": similarity_documents
+        }
+    }
+    
+    # # Print summary statistics
+    # print(f"\nPlagiarism Check Summary:")
+    # print(f"Total sentences: {total_sentences}")
+    # print(f"Documents with matches above {min_similarity}: {len(document_matches)}")
+    
+    # print(f"\nTop similar documents:")
+    # for doc in similarity_documents:
+    #     sent_count = sum(len(page["similarity_content"]) for page in doc["similarity_box_sentences"])
+    #     print(f"- {doc['name']}: {doc['similarity_value']}% ({sent_count} sentences located)")
+    
+    print(f"Processing time: {time.time() - start_time:.2f} seconds")
+    print(len(matched_sentence_set) / total_sentences * 100)
+    print(len(matched_sentence_set))
+    return JSONResponse(content=result, status_code=200)
+
+
 
 def main():
     """Main function to run plagiarism checks"""

@@ -71,10 +71,15 @@ class CorpusCreator:
     def split_into_sentences(self, text: str) -> List[str]:
         """Split text into sentences and filter out unwanted ones."""
         text = self.clean_text(text)
-        raw_sentences = nltk.sent_tokenize(text)
-        
-        return [tokenize(sent) for sent in raw_sentences 
-                if not self.should_exclude_sentence(sent)]
+        sentences = nltk.sent_tokenize(text)
+        tokenized_sentences = []
+        raw_sentences = []
+        for sent in sentences:
+            if not self.should_exclude_sentence(sent):
+                tokenized_sentences.append(tokenize(sent))
+                raw_sentences.append(sent)
+
+        return tokenized_sentences, raw_sentences
 
     def process_document(self, file_path: str) -> Tuple[List[str], np.ndarray]:
         """Process a document: extract text, split into sentences, and generate embeddings."""
@@ -89,16 +94,16 @@ class CorpusCreator:
 
         # Split into sentences
         start_split = time.time()
-        sentences = self.split_into_sentences(content)
+        tokenized_sentences, raw_sentences = self.split_into_sentences(content)
         split_time = time.time() - start_split
         print(f"Split {file_path} in {split_time:.2f}s")
-        if not sentences:
+        if not tokenized_sentences:
             return [], np.array([])
 
         # Generate embeddings
         start_encode = time.time()
         embeddings = self.model.encode(
-            sentences,
+            tokenized_sentences,
             batch_size=self.batch_size,
             device="cuda:0",
             show_progress_bar=False
@@ -106,7 +111,7 @@ class CorpusCreator:
         encode_time = time.time() - start_encode
         print(f"Encode {file_path} in {encode_time:.2f}s")  
         
-        return sentences, np.array(embeddings)
+        return raw_sentences, np.array(embeddings)
 
     def insert_data(self, filename: str, file_path: str, sentences: List[str], 
                    embeddings: Optional[np.ndarray] = None) -> Tuple[int, List[int]]:
