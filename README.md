@@ -63,7 +63,7 @@ The system employs a three-tier architecture:
 <div align="center">
 
 ### Core Technologies
-[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Docker](https://img.shields.io/badge/Docker-9ae5ff?style=for-the-badge&logo=docker&logoColor=blue)](https://www.docker.com/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![HuggingFace](https://img.shields.io/badge/HuggingFace-19354c?style=for-the-badge&logo=HuggingFace&logoColor=ffbf00)](https://huggingface.co/sentence-transformers)
