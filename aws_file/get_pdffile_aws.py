@@ -1,17 +1,7 @@
 import requests
 import boto3
+from config.conf import AWS_ACCESS_KEY, AWS_SECRET_KEY, AWS_REGION, BUCKET_NAME
 import os
-from dotenv import load_dotenv
-
-# Load environment variables
-load_dotenv()
-
-# Get AWS credentials from environment variables
-AWS_ACCESS_KEY = os.getenv('AWS_ACCESS_KEY')
-AWS_SECRET_KEY = os.getenv('AWS_SECRET_KEY')
-AWS_REGION = os.getenv('AWS_REGION', 'ap-southeast-2')
-BUCKET_NAME = os.getenv('AWS_BUCKET_NAME', 'similar-dainam')
-
 # Verify that required environment variables are set
 if not all([AWS_ACCESS_KEY, AWS_SECRET_KEY]):
     raise ValueError("AWS credentials not found in environment variables. Please set AWS_ACCESS_KEY and AWS_SECRET_KEY.")
@@ -34,13 +24,14 @@ def create_presigned_url(bucket_name, object_key, expiration=900):
     except Exception as e:
         return None
 
-# @app.route('/presigned-url/<subject_id>/<file_name>', methods=['GET'])
+
 def read_presigned_url(subject_id, file_name):
     object_key = f"{subject_id}/{file_name}"
     url = create_presigned_url(BUCKET_NAME, object_key)
     # File name to save as
-    output_file = f"./temp/{file_name}.pdf"
-    print(url)
+    current_dir = os.path.abspath(os.path.dirname(__file__))
+    parent_dir = os.path.abspath(os.path.join(current_dir, ".."))
+    output_file = f"{parent_dir}/file_db/{file_name}"
     # Download the file
     response = requests.get(url, stream=True)
     if response.status_code == 200:
@@ -55,6 +46,3 @@ def read_presigned_url(subject_id, file_name):
         return None
     
     return output_file
-
-# if __name__ == '__main__':
-#     app.run(debug=True, port=5555)

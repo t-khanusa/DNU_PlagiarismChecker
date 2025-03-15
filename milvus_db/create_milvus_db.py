@@ -1,8 +1,11 @@
 from pymilvus import connections, FieldSchema, CollectionSchema, DataType, Collection, utility
 import numpy as np
+from config.conf import MILVUS_DB_NAME, MILVUS_HOST, MILVUS_PORT
 # from create_corpus import CorpusCreator
 # Connect to Milvus
-conn = connections.connect(host="localhost", port="19530", db_name="vector_database")
+
+
+conn = connections.connect(host=MILVUS_HOST, port=MILVUS_PORT, db_name=MILVUS_DB_NAME)
 collection_name = "sentence_similarity"
 collection = Collection(name=collection_name)
 

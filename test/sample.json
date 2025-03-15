@@ -1,0 +1,2007 @@
+{
+  "data": {
+    "total_percent": 100,
+    "size_page": {
+      "width": 595.3200073242188,
+      "height": 842.0399780273438
+    },
+    "similarity_documents": [
+      {
+        "name": "1451020047_NGUYENHOANGDUONG.pdf",
+        "similarity_value": 63,
+        "similarity_box_sentences": [
+          {
+            "pageNumber": 0,
+            "similarity_content": [
+              {
+                "content": "Đặt vấn đề: \n Trong ngành xây dựng, quản lý vật liệu là một trong những yếu tố cốt lõi quyết định \nđến sự thành công của một dự án.",
+                "rects": [
+                  [
+                    121.0999984741211,
+                    81.41311645507812,
+                    184.22000122070312,
+                    98.7017593383789
+                  ],
+                  [
+                    85.10399627685547,
+                    107.57308959960938,
+                    542.003662109375,
+                    124.86173248291016
+                  ],
+                  [
+                    85.10399627685547,
+                    127.73312377929688,
+                    260.5642395019531,
+                    145.02175903320312
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 0,
+            "similarity_content": [
+              {
+                "content": "Quản lý vật liệu không chỉ đòi hỏi sự cẩn trọng và tổ \nchức chặt chẽ mà còn đề xuất tính hiệu quả và linh hoạt.",
+                "rects": [
+                  [
+                    263.9208679199219,
+                    127.73312377929688,
+                    542.02001953125,
+                    145.02175903320312
+                  ],
+                  [
+                    85.10399627685547,
+                    147.89309692382812,
+                    378.1765441894531,
+                    165.18173217773438
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 0,
+            "similarity_content": [
+              {
+                "content": "Đối mặt với sự phức tạp và đa \ndạng của các vật liệu, cùng với sự động thái và không chắc chắn của thị trường, việc \nứng dụng công nghệ thông tin trong quản lý vật liệu xây dựng trở nên cần thiết và tiềm \nnăng.",
+                "rects": [
+                  [
+                    381.4165344238281,
+                    147.89309692382812,
+                    542.01416015625,
+                    165.18173217773438
+                  ],
+                  [
+                    85.10399627685547,
+                    168.05307006835938,
+                    542.020263671875,
+                    185.34170532226562
+                  ],
+                  [
+                    85.10399627685547,
+                    188.33309936523438,
+                    542.02001953125,
+                    205.62173461914062
+                  ],
+                  [
+                    85.10399627685547,
+                    210.59112548828125,
+                    113.53824615478516,
+                    224.9433135986328
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 0,
+            "similarity_content": [
+              {
+                "content": "Một trong những thách thức cơ bản mà ngành xây dựng đang phải đối mặt là việc \nquản lý tồn kho vật liệu.",
+                "rects": [
+                  [
+                    116.66160583496094,
+                    208.49307250976562,
+                    542.020263671875,
+                    225.78170776367188
+                  ],
+                  [
+                    85.10399627685547,
+                    228.65310668945312,
+                    209.67369079589844,
+                    245.94174194335938
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 0,
+            "similarity_content": [
+              {
+                "content": "Sự thiếu hụt hoặc lãng phí về tài nguyên có thể dẫn đến tổn thất \nvề thời gian và chi phí cho các dự án.",
+                "rects": [
+                  [
+                    212.55081176757812,
+                    228.65310668945312,
+                    542.0198974609375,
+                    245.94174194335938
+                  ],
+                  [
+                    85.10399627685547,
+                    248.84310913085938,
+                    278.3242492675781,
+                    266.1317443847656
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 0,
+            "similarity_content": [
+              {
+                "content": "Các công ty xây dựng thường gặp khó khăn trong \nviệc theo dõi lượng tồn kho, dự đoán nhu cầu và quản lý các đơn hàng một cách hiệu \nquả.",
+                "rects": [
+                  [
+                    281.5642395019531,
+                    248.84310913085938,
+                    541.9868774414062,
+                    266.1317443847656
+                  ],
+                  [
+                    85.10399627685547,
+                    269.0030822753906,
+                    542.0199584960938,
+                    286.2917175292969
+                  ],
+                  [
+                    85.10399627685547,
+                    289.1631164550781,
+                    107.05999755859375,
+                    306.4517517089844
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 0,
+            "similarity_content": [
+              {
+                "content": "Ngoài ra, việc quản lý các đơn đặt hàng cũng là một thách thức lớn đối với các \ndoanh nghiệp xây dựng.",
+                "rects": [
+                  [
+                    111.36271667480469,
+                    289.1631164550781,
+                    541.9978637695312,
+                    306.4517517089844
+                  ],
+                  [
+                    85.10399627685547,
+                    309.4430847167969,
+                    211.84999084472656,
+                    326.7317199707031
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 0,
+            "similarity_content": [
+              {
+                "content": "Sự trễ hạn trong việc giao hàng có thể ảnh hưởng đến tiến độ \ncủa dự án và uy tín của công ty.",
+                "rects": [
+                  [
+                    215.55654907226562,
+                    309.4430847167969,
+                    542.02001953125,
+                    326.7317199707031
+                  ],
+                  [
+                    85.10399627685547,
+                    329.60308837890625,
+                    250.09542846679688,
+                    346.8917236328125
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 0,
+            "similarity_content": [
+              {
+                "content": "Việc không có một hệ thống quản lý đơn đặt hàng hiệu \nquả có thể dẫn đến việc thiếu hụt vật liệu hoặc gây ra sự trễ hạn trong việc giao hàng, \nảnh hưởng đến tiến độ của dự án và uy tín của công ty.",
+                "rects": [
+                  [
+                    253.33543395996094,
+                    329.60308837890625,
+                    542.0199584960938,
+                    346.8917236328125
+                  ],
+                  [
+                    85.10399627685547,
+                    349.7630920410156,
+                    541.9685668945312,
+                    367.0517272949219
+                  ],
+                  [
+                    85.10399627685547,
+                    369.923095703125,
+                    371.05572509765625,
+                    387.21173095703125
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 0,
+            "similarity_content": [
+              {
+                "content": "Để giải quyết những thách thức \nnày, dự án này tập trung vào việc xây dựng một ứng dụng quản lý vật liệu xây dựng trên \nnền tảng web.",
+                "rects": [
+                  [
+                    374.3993835449219,
+                    369.923095703125,
+                    542.02001953125,
+                    387.21173095703125
+                  ],
+                  [
+                    85.10399627685547,
+                    390.0830993652344,
+                    541.990234375,
+                    407.3717346191406
+                  ],
+                  [
+                    85.10399627685547,
+                    410.2630920410156,
+                    156.83216857910156,
+                    427.5517272949219
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 0,
+            "similarity_content": [
+              {
+                "content": "Ứng dụng này sẽ giúp các doanh nghiệp xây dựng theo dõi và quản lý tồn \nkho vật liệu, tạo và quản lý các đơn đặt hàng một cách hiệu quả, từ đó tối ưu hóa quá \ntrình quản lý và giảm thiểu rủi ro và chi phí.",
+                "rects": [
+                  [
+                    159.86000061035156,
+                    410.2630920410156,
+                    542.0199584960938,
+                    427.5517272949219
+                  ],
+                  [
+                    85.10399627685547,
+                    430.5430908203125,
+                    541.95361328125,
+                    447.83172607421875
+                  ],
+                  [
+                    85.10399627685547,
+                    450.7030944824219,
+                    316.6310729980469,
+                    467.9917297363281
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 0,
+            "similarity_content": [
+              {
+                "content": "Trong phạm vi của dự án, tôi sẽ thực hiện \ncác nghiên cứu cẩn thận về các yếu tố ảnh hưởng đến quản lý vật liệu xây dựng, phát \ntriển và triển khai một ứng dụng web thân thiện người dùng và linh hoạt, cung cấp các \ntính năng quản lý vật liệu mạnh mẽ và đáng tin cậy.",
+                "rects": [
+                  [
+                    320.09136962890625,
+                    450.7030944824219,
+                    542.0199584960938,
+                    467.9917297363281
+                  ],
+                  [
+                    85.10399627685547,
+                    470.86309814453125,
+                    541.9839477539062,
+                    488.1517333984375
+                  ],
+                  [
+                    85.10399627685547,
+                    491.0231018066406,
+                    541.9925537109375,
+                    508.3117370605469
+                  ],
+                  [
+                    85.10399627685547,
+                    511.1830749511719,
+                    356.4637451171875,
+                    528.4717407226562
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 0,
+            "similarity_content": [
+              {
+                "content": "Đồng thời, tôi cũng sẽ đề xuất các \ngiải pháp và chiến lược để tối ưu hóa quá trình quản lý vật liệu xây dựng, từ đó giúp các \ndoanh nghiệp xây dựng nâng cao hiệu quả và cạnh tranh trong thị trường xây dựng ngày \ncàng cạnh tranh.",
+                "rects": [
+                  [
+                    359.93701171875,
+                    511.1830749511719,
+                    541.9954223632812,
+                    528.4717407226562
+                  ],
+                  [
+                    85.10399627685547,
+                    531.463134765625,
+                    541.986328125,
+                    548.7517700195312
+                  ],
+                  [
+                    85.10399627685547,
+                    551.6231689453125,
+                    541.9916381835938,
+                    568.9118041992188
+                  ],
+                  [
+                    85.10399627685547,
+                    571.8131103515625,
+                    170.5294189453125,
+                    589.1017456054688
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 0,
+            "similarity_content": [
+              {
+                "content": "Lý do chọn đề tài: \n Trong bối cảnh sự phát triển nhanh chóng của ngành công nghiệp xây dựng, việc quản \nlý vật liệu xây dựng trở nên ngày càng phức tạp và đòi hỏi sự chính xác, hiệu quả cao.",
+                "rects": [
+                  [
+                    121.0999984741211,
+                    618.1331176757812,
+                    218.9300079345703,
+                    635.4217529296875
+                  ],
+                  [
+                    85.10399627685547,
+                    644.2930908203125,
+                    542.0199584960938,
+                    661.5817260742188
+                  ],
+                  [
+                    85.10399627685547,
+                    664.5731201171875,
+                    538.7857666015625,
+                    681.8617553710938
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 0,
+            "similarity_content": [
+              {
+                "content": "Vật liệu xây dựng chiếm một tỷ trọng quan trọng trong mỗi dự án xây dựng, và việc \nquản lý chúng một cách thông minh có thể ảnh hưởng đến sự thành công của dự án, từ \nviệc đảm bảo nguồn cung đủ đến việc kiểm soát chi phí và thời gian.",
+                "rects": [
+                  [
+                    85.10399627685547,
+                    684.733154296875,
+                    542.02001953125,
+                    702.0217895507812
+                  ],
+                  [
+                    85.10399627685547,
+                    704.8931274414062,
+                    542.02001953125,
+                    722.1817626953125
+                  ],
+                  [
+                    85.10399627685547,
+                    725.0531005859375,
+                    441.1770324707031,
+                    742.3417358398438
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 0,
+            "similarity_content": [
+              {
+                "content": "Hiện nay, nhu cầu \nsử dụng vật liệu xây dựng đang tăng mạnh, đặc biệt là trong các dự án xây dựng lớn.",
+                "rects": [
+                  [
+                    444.4170227050781,
+                    725.0531005859375,
+                    542.0199584960938,
+                    742.3417358398438
+                  ],
+                  [
+                    85.10399627685547,
+                    745.233154296875,
+                    538.763671875,
+                    762.5217895507812
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "CƠ SỞ LÝ THUYẾT VÀ CÔNG NGHỆ SỬ DỤNG \n \n2.1 Giới thiệu về ngành công nghệ thông tin  \nCông nghệ thông tin (CNTT) là lĩnh vực nghiên cứu và ứng dụng công nghệ để quản lý \nvà xử lý thông tin.",
+                "rects": [
+                  [
+                    207.61859130859375,
+                    398.3597412109375,
+                    498.6999816894531,
+                    416.3093566894531
+                  ],
+                  [
+                    311.92999267578125,
+                    418.65972900390625,
+                    315.16998291015625,
+                    436.6093444824219
+                  ],
+                  [
+                    85.10399627685547,
+                    438.7030944824219,
+                    321.30999755859375,
+                    455.9917297363281
+                  ],
+                  [
+                    85.10399627685547,
+                    458.86309814453125,
+                    541.9935913085938,
+                    476.1517333984375
+                  ],
+                  [
+                    85.10399627685547,
+                    479.0231018066406,
+                    180.12559509277344,
+                    496.3117370605469
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "Sự phát triển của công nghệ thông tin mở ra nhiều cơ hội mới trong việc quản lý vật liệu \nxây dựng.",
+                "rects": [
+                  [
+                    85.10399627685547,
+                    75.41311645507812,
+                    542.0199584960938,
+                    92.7017593383789
+                  ],
+                  [
+                    85.10399627685547,
+                    95.57308959960938,
+                    136.4600067138672,
+                    112.86173248291016
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "Tính linh hoạt và khả năng tích hợp của các hệ thống thông tin hiện đại có thể \ngiúp tối ưu hóa quy trình quản lý vật liệu, từ việc đặt hàng đến theo dõi và kiểm soát \nhàng tồn kho.",
+                "rects": [
+                  [
+                    139.33712768554688,
+                    95.57308959960938,
+                    542.02001953125,
+                    112.86173248291016
+                  ],
+                  [
+                    85.10399627685547,
+                    115.73312377929688,
+                    542.001220703125,
+                    133.02175903320312
+                  ],
+                  [
+                    85.10399627685547,
+                    135.89309692382812,
+                    156.95359802246094,
+                    153.18173217773438
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "Việc quản lý vật liệu xây dựng không chỉ đơn giản là một phần của quá \ntrình xây dựng mà còn là yếu tố quyết định đến sự thành công của dự án.",
+                "rects": [
+                  [
+                    160.66015625,
+                    135.89309692382812,
+                    541.9786376953125,
+                    153.18173217773438
+                  ],
+                  [
+                    85.10399627685547,
+                    156.05307006835938,
+                    481.0542297363281,
+                    173.34170532226562
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "Tầm quan \ntrọng của việc này không thể bỏ qua, và việc áp dụng công nghệ thông tin có thể giúp \ntối ưu hóa quy trình quản lý và đảm bảo hiệu suất cao hơn.",
+                "rects": [
+                  [
+                    485.3699035644531,
+                    156.05307006835938,
+                    541.999755859375,
+                    173.34170532226562
+                  ],
+                  [
+                    85.10399627685547,
+                    176.33309936523438,
+                    542.0065307617188,
+                    193.62173461914062
+                  ],
+                  [
+                    85.10399627685547,
+                    196.49307250976562,
+                    397.1399230957031,
+                    213.78170776367188
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "Quản lý vật liệu xây dựng \nhiệu quả không chỉ giúp tiết kiệm chi phí và thời gian mà còn đóng góp vào mục tiêu \nphát triển bền vững trong ngành xây dựng.",
+                "rects": [
+                  [
+                    400.9501647949219,
+                    196.49307250976562,
+                    542.003662109375,
+                    213.78170776367188
+                  ],
+                  [
+                    85.10399627685547,
+                    216.65310668945312,
+                    541.99072265625,
+                    233.94174194335938
+                  ],
+                  [
+                    85.10399627685547,
+                    236.84310913085938,
+                    312.4100036621094,
+                    254.13174438476562
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "Việc giảm thiểu lãng phí và tối ưu hóa sử \ndụng tài nguyên có thể giảm thiểu tác động tiêu cực đến môi trường và xã hội.",
+                "rects": [
+                  [
+                    316.4664611816406,
+                    236.84310913085938,
+                    542.02001953125,
+                    254.13174438476562
+                  ],
+                  [
+                    85.10399627685547,
+                    257.0030822753906,
+                    494.62286376953125,
+                    274.2917175292969
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "Một số lĩnh vực trong ngành CNTT bao gồm:  \n+ Phát triển phần mềm: Liên quan đến việc thiết kế, lập trình và duy trì các ứng dụng \nphần mềm phục vụ cho nhiều mục đích khác nhau, từ ứng dụng di động, trang web cho \nđến phần mềm quản lý doanh nghiệp.",
+                "rects": [
+                  [
+                    209.28799438476562,
+                    539.6231689453125,
+                    453.3399963378906,
+                    556.9118041992188
+                  ],
+                  [
+                    85.10399627685547,
+                    559.7831420898438,
+                    542.0199584960938,
+                    577.07177734375
+                  ],
+                  [
+                    85.10399627685547,
+                    579.97314453125,
+                    542.0011596679688,
+                    597.2617797851562
+                  ],
+                  [
+                    85.10399627685547,
+                    600.1331176757812,
+                    280.3699951171875,
+                    617.4217529296875
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 2,
+            "similarity_content": [
+              {
+                "content": "9 \nTrong giáo dục, CNTT giúp tiếp cận tri thức một cách nhanh chóng và linh hoạt, tạo \nđiều kiện cho học tập từ xa và học tập suốt đời.",
+                "rects": [
+                  [
+                    532.1627197265625,
+                    176.33309936523438,
+                    541.9863891601562,
+                    193.62173461914062
+                  ],
+                  [
+                    85.10399627685547,
+                    196.49307250976562,
+                    542.0199584960938,
+                    213.78170776367188
+                  ],
+                  [
+                    85.10399627685547,
+                    216.65310668945312,
+                    333.19287109375,
+                    233.94174194335938
+                  ]
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "1451020257_Trần Đức Tuấn_ĐATN.pdf",
+        "similarity_value": 36,
+        "similarity_box_sentences": [
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "Trên cơ \nsở những lý do trên, tôi cam kết thực hiện đề tài này với mong muốn đóng góp vào sự \nphát triển của ngành xây dựng và hỗ trợ các doanh nghiệp xây dựng trong việc quản lý \nvật liệu một cách hiệu quả và bền vững hơn.",
+                "rects": [
+                  [
+                    498.0831604003906,
+                    259.10113525390625,
+                    541.965576171875,
+                    273.45330810546875
+                  ],
+                  [
+                    85.10399627685547,
+                    277.1631164550781,
+                    542.02001953125,
+                    294.4517517089844
+                  ],
+                  [
+                    85.10399627685547,
+                    297.4430847167969,
+                    541.990234375,
+                    314.7317199707031
+                  ],
+                  [
+                    85.10399627685547,
+                    317.60308837890625,
+                    315.5458679199219,
+                    334.8917236328125
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "CƠ SỞ LÝ THUYẾT VÀ CÔNG NGHỆ SỬ DỤNG \n \n2.1 Giới thiệu về ngành công nghệ thông tin  \nCông nghệ thông tin (CNTT) là lĩnh vực nghiên cứu và ứng dụng công nghệ để quản lý \nvà xử lý thông tin.",
+                "rects": [
+                  [
+                    207.61859130859375,
+                    398.3597412109375,
+                    498.6999816894531,
+                    416.3093566894531
+                  ],
+                  [
+                    311.92999267578125,
+                    418.65972900390625,
+                    315.16998291015625,
+                    436.6093444824219
+                  ],
+                  [
+                    85.10399627685547,
+                    438.7030944824219,
+                    321.30999755859375,
+                    455.9917297363281
+                  ],
+                  [
+                    85.10399627685547,
+                    458.86309814453125,
+                    541.9935913085938,
+                    476.1517333984375
+                  ],
+                  [
+                    85.10399627685547,
+                    479.0231018066406,
+                    180.12559509277344,
+                    496.3117370605469
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "Nó bao gồm nhiều lĩnh vực khác nhau như lập trình, mạng máy tính, \ncơ sở dữ liệu, an ninh mạng, trí tuệ nhân tạo, và nhiều hơn nữa.",
+                "rects": [
+                  [
+                    183.24896240234375,
+                    479.0231018066406,
+                    541.9677124023438,
+                    496.3117370605469
+                  ],
+                  [
+                    85.10399627685547,
+                    499.1830749511719,
+                    408.78424072265625,
+                    516.4717407226562
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "CNTT đóng vai trò quan \ntrọng trong hầu hết mọi lĩnh vực của cuộc sống hiện đại, từ truyền thông, giáo dục, y tế, \nkinh doanh đến giải trí.",
+                "rects": [
+                  [
+                    411.67431640625,
+                    501.2811279296875,
+                    541.9351806640625,
+                    515.63330078125
+                  ],
+                  [
+                    85.10399627685547,
+                    519.463134765625,
+                    542.0199584960938,
+                    536.7517700195312
+                  ],
+                  [
+                    85.10399627685547,
+                    539.6231689453125,
+                    205.94430541992188,
+                    556.9118041992188
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "Một số lĩnh vực trong ngành CNTT bao gồm:  \n+ Phát triển phần mềm: Liên quan đến việc thiết kế, lập trình và duy trì các ứng dụng \nphần mềm phục vụ cho nhiều mục đích khác nhau, từ ứng dụng di động, trang web cho \nđến phần mềm quản lý doanh nghiệp.",
+                "rects": [
+                  [
+                    209.28799438476562,
+                    539.6231689453125,
+                    453.3399963378906,
+                    556.9118041992188
+                  ],
+                  [
+                    85.10399627685547,
+                    559.7831420898438,
+                    542.0199584960938,
+                    577.07177734375
+                  ],
+                  [
+                    85.10399627685547,
+                    579.97314453125,
+                    542.0011596679688,
+                    597.2617797851562
+                  ],
+                  [
+                    85.10399627685547,
+                    600.1331176757812,
+                    280.3699951171875,
+                    617.4217529296875
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "+ Quản trị hệ thống mạng: Bao gồm việc thiết kế, cài đặt, cấu hình và duy trì hệ thống \nmạng để đảm bảo kết nối thông tin thông suốt trong một tổ chức.",
+                "rects": [
+                  [
+                    85.10399627685547,
+                    620.2930908203125,
+                    542.0199584960938,
+                    637.5817260742188
+                  ],
+                  [
+                    85.10399627685547,
+                    640.5731201171875,
+                    422.8299865722656,
+                    657.8617553710938
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "+ Cơ sở dữ liệu: Nghiên cứu và phát triển các phương pháp lưu trữ, quản lý và truy vấn \ndữ liệu một cách hiệu quả, phục vụ cho nhiều ứng dụng khác nhau.",
+                "rects": [
+                  [
+                    85.10399627685547,
+                    660.733154296875,
+                    542.0199584960938,
+                    678.0217895507812
+                  ],
+                  [
+                    85.10399627685547,
+                    680.8931274414062,
+                    433.7294006347656,
+                    698.1817626953125
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "+ An ninh mạng: Tập trung vào việc bảo vệ hệ thống và dữ liệu khỏi các mối đe dọa và \ntấn công từ bên ngoài, bao gồm cả việc ngăn chặn virus, tấn công mạng và các hoạt động \nxâm phạm khác.",
+                "rects": [
+                  [
+                    85.10399627685547,
+                    701.0531005859375,
+                    542.0315551757812,
+                    718.3417358398438
+                  ],
+                  [
+                    85.10399627685547,
+                    721.213134765625,
+                    542.003662109375,
+                    738.5017700195312
+                  ],
+                  [
+                    85.10399627685547,
+                    741.3931274414062,
+                    170.51841735839844,
+                    758.6817626953125
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 2,
+            "similarity_content": [
+              {
+                "content": "+ Trí tuệ nhân tạo (AI): Là lĩnh vực phát triển các hệ thống máy tính thông minh có khả \nnăng học hỏi, suy nghĩ và thực hiện các tác vụ như con người.",
+                "rects": [
+                  [
+                    85.10399627685547,
+                    55.113067626953125,
+                    542.02001953125,
+                    72.4017105102539
+                  ],
+                  [
+                    85.10399627685547,
+                    75.41311645507812,
+                    407.9499816894531,
+                    92.7017593383789
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 2,
+            "similarity_content": [
+              {
+                "content": "+ Công nghệ đám mây: Liên quan đến việc cung cấp tài nguyên công nghệ như lưu trữ, \nxử lý và ứng dụng qua internet, cho phép người dùng truy cập vào dữ liệu và ứng dụng \nmọi lúc mọi nơi.",
+                "rects": [
+                  [
+                    85.10399627685547,
+                    95.57308959960938,
+                    542.0199584960938,
+                    112.86173248291016
+                  ],
+                  [
+                    85.10399627685547,
+                    115.73312377929688,
+                    542.0199584960938,
+                    133.02175903320312
+                  ],
+                  [
+                    85.10399627685547,
+                    135.89309692382812,
+                    170.65902709960938,
+                    153.18173217773438
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 2,
+            "similarity_content": [
+              {
+                "content": "CNTT đóng vai trò quan trọng trong nhiều lĩnh vực như giáo dục, y tế, \nkinh doanh, giải trí và chính phủ.",
+                "rects": [
+                  [
+                    173.7564697265625,
+                    135.89309692382812,
+                    542.0199584960938,
+                    153.18173217773438
+                  ],
+                  [
+                    85.10399627685547,
+                    156.05307006835938,
+                    260.2099914550781,
+                    173.34170532226562
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 2,
+            "similarity_content": [
+              {
+                "content": "Việc ứng dụng CNTT không chỉ giúp nâng cao hiệu \nquả và chất lượng trong các lĩnh vực này mà còn thúc đẩy sự đổi mới và sáng tạo.",
+                "rects": [
+                  [
+                    263.9165344238281,
+                    156.05307006835938,
+                    542.0199584960938,
+                    173.34170532226562
+                  ],
+                  [
+                    85.10399627685547,
+                    176.33309936523438,
+                    527.8599853515625,
+                    193.62173461914062
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 2,
+            "similarity_content": [
+              {
+                "content": "9 \nTrong giáo dục, CNTT giúp tiếp cận tri thức một cách nhanh chóng và linh hoạt, tạo \nđiều kiện cho học tập từ xa và học tập suốt đời.",
+                "rects": [
+                  [
+                    532.1627197265625,
+                    176.33309936523438,
+                    541.9863891601562,
+                    193.62173461914062
+                  ],
+                  [
+                    85.10399627685547,
+                    196.49307250976562,
+                    542.0199584960938,
+                    213.78170776367188
+                  ],
+                  [
+                    85.10399627685547,
+                    216.65310668945312,
+                    333.19287109375,
+                    233.94174194335938
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 2,
+            "similarity_content": [
+              {
+                "content": "Trong y tế, CNTT cải thiện quản lý hồ \nsơ bệnh nhân, chẩn đoán và điều trị bệnh, mang lại dịch vụ chăm sóc sức khỏe tốt hơn.",
+                "rects": [
+                  [
+                    336.6531677246094,
+                    216.65310668945312,
+                    542.02001953125,
+                    233.94174194335938
+                  ],
+                  [
+                    85.10399627685547,
+                    236.84310913085938,
+                    538.7660522460938,
+                    254.13174438476562
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 2,
+            "similarity_content": [
+              {
+                "content": "Trong kinh doanh, CNTT hỗ trợ quản lý hiệu quả, tăng cường khả năng cạnh tranh và \nmở rộng thị trường.",
+                "rects": [
+                  [
+                    85.10399627685547,
+                    257.0030822753906,
+                    541.9766845703125,
+                    274.2917175292969
+                  ],
+                  [
+                    85.10399627685547,
+                    277.1631164550781,
+                    187.09999084472656,
+                    294.4517517089844
+                  ]
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "1451020065_Ngô Thành Đức_ĐATN (3).pdf",
+        "similarity_value": 36,
+        "similarity_box_sentences": [
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "Trên cơ \nsở những lý do trên, tôi cam kết thực hiện đề tài này với mong muốn đóng góp vào sự \nphát triển của ngành xây dựng và hỗ trợ các doanh nghiệp xây dựng trong việc quản lý \nvật liệu một cách hiệu quả và bền vững hơn.",
+                "rects": [
+                  [
+                    498.0831604003906,
+                    259.10113525390625,
+                    541.965576171875,
+                    273.45330810546875
+                  ],
+                  [
+                    85.10399627685547,
+                    277.1631164550781,
+                    542.02001953125,
+                    294.4517517089844
+                  ],
+                  [
+                    85.10399627685547,
+                    297.4430847167969,
+                    541.990234375,
+                    314.7317199707031
+                  ],
+                  [
+                    85.10399627685547,
+                    317.60308837890625,
+                    315.5458679199219,
+                    334.8917236328125
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "CƠ SỞ LÝ THUYẾT VÀ CÔNG NGHỆ SỬ DỤNG \n \n2.1 Giới thiệu về ngành công nghệ thông tin  \nCông nghệ thông tin (CNTT) là lĩnh vực nghiên cứu và ứng dụng công nghệ để quản lý \nvà xử lý thông tin.",
+                "rects": [
+                  [
+                    207.61859130859375,
+                    398.3597412109375,
+                    498.6999816894531,
+                    416.3093566894531
+                  ],
+                  [
+                    311.92999267578125,
+                    418.65972900390625,
+                    315.16998291015625,
+                    436.6093444824219
+                  ],
+                  [
+                    85.10399627685547,
+                    438.7030944824219,
+                    321.30999755859375,
+                    455.9917297363281
+                  ],
+                  [
+                    85.10399627685547,
+                    458.86309814453125,
+                    541.9935913085938,
+                    476.1517333984375
+                  ],
+                  [
+                    85.10399627685547,
+                    479.0231018066406,
+                    180.12559509277344,
+                    496.3117370605469
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "Nó bao gồm nhiều lĩnh vực khác nhau như lập trình, mạng máy tính, \ncơ sở dữ liệu, an ninh mạng, trí tuệ nhân tạo, và nhiều hơn nữa.",
+                "rects": [
+                  [
+                    183.24896240234375,
+                    479.0231018066406,
+                    541.9677124023438,
+                    496.3117370605469
+                  ],
+                  [
+                    85.10399627685547,
+                    499.1830749511719,
+                    408.78424072265625,
+                    516.4717407226562
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "CNTT đóng vai trò quan \ntrọng trong hầu hết mọi lĩnh vực của cuộc sống hiện đại, từ truyền thông, giáo dục, y tế, \nkinh doanh đến giải trí.",
+                "rects": [
+                  [
+                    411.67431640625,
+                    501.2811279296875,
+                    541.9351806640625,
+                    515.63330078125
+                  ],
+                  [
+                    85.10399627685547,
+                    519.463134765625,
+                    542.0199584960938,
+                    536.7517700195312
+                  ],
+                  [
+                    85.10399627685547,
+                    539.6231689453125,
+                    205.94430541992188,
+                    556.9118041992188
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "Một số lĩnh vực trong ngành CNTT bao gồm:  \n+ Phát triển phần mềm: Liên quan đến việc thiết kế, lập trình và duy trì các ứng dụng \nphần mềm phục vụ cho nhiều mục đích khác nhau, từ ứng dụng di động, trang web cho \nđến phần mềm quản lý doanh nghiệp.",
+                "rects": [
+                  [
+                    209.28799438476562,
+                    539.6231689453125,
+                    453.3399963378906,
+                    556.9118041992188
+                  ],
+                  [
+                    85.10399627685547,
+                    559.7831420898438,
+                    542.0199584960938,
+                    577.07177734375
+                  ],
+                  [
+                    85.10399627685547,
+                    579.97314453125,
+                    542.0011596679688,
+                    597.2617797851562
+                  ],
+                  [
+                    85.10399627685547,
+                    600.1331176757812,
+                    280.3699951171875,
+                    617.4217529296875
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "+ Quản trị hệ thống mạng: Bao gồm việc thiết kế, cài đặt, cấu hình và duy trì hệ thống \nmạng để đảm bảo kết nối thông tin thông suốt trong một tổ chức.",
+                "rects": [
+                  [
+                    85.10399627685547,
+                    620.2930908203125,
+                    542.0199584960938,
+                    637.5817260742188
+                  ],
+                  [
+                    85.10399627685547,
+                    640.5731201171875,
+                    422.8299865722656,
+                    657.8617553710938
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "+ Cơ sở dữ liệu: Nghiên cứu và phát triển các phương pháp lưu trữ, quản lý và truy vấn \ndữ liệu một cách hiệu quả, phục vụ cho nhiều ứng dụng khác nhau.",
+                "rects": [
+                  [
+                    85.10399627685547,
+                    660.733154296875,
+                    542.0199584960938,
+                    678.0217895507812
+                  ],
+                  [
+                    85.10399627685547,
+                    680.8931274414062,
+                    433.7294006347656,
+                    698.1817626953125
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "+ An ninh mạng: Tập trung vào việc bảo vệ hệ thống và dữ liệu khỏi các mối đe dọa và \ntấn công từ bên ngoài, bao gồm cả việc ngăn chặn virus, tấn công mạng và các hoạt động \nxâm phạm khác.",
+                "rects": [
+                  [
+                    85.10399627685547,
+                    701.0531005859375,
+                    542.0315551757812,
+                    718.3417358398438
+                  ],
+                  [
+                    85.10399627685547,
+                    721.213134765625,
+                    542.003662109375,
+                    738.5017700195312
+                  ],
+                  [
+                    85.10399627685547,
+                    741.3931274414062,
+                    170.51841735839844,
+                    758.6817626953125
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 2,
+            "similarity_content": [
+              {
+                "content": "+ Trí tuệ nhân tạo (AI): Là lĩnh vực phát triển các hệ thống máy tính thông minh có khả \nnăng học hỏi, suy nghĩ và thực hiện các tác vụ như con người.",
+                "rects": [
+                  [
+                    85.10399627685547,
+                    55.113067626953125,
+                    542.02001953125,
+                    72.4017105102539
+                  ],
+                  [
+                    85.10399627685547,
+                    75.41311645507812,
+                    407.9499816894531,
+                    92.7017593383789
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 2,
+            "similarity_content": [
+              {
+                "content": "+ Công nghệ đám mây: Liên quan đến việc cung cấp tài nguyên công nghệ như lưu trữ, \nxử lý và ứng dụng qua internet, cho phép người dùng truy cập vào dữ liệu và ứng dụng \nmọi lúc mọi nơi.",
+                "rects": [
+                  [
+                    85.10399627685547,
+                    95.57308959960938,
+                    542.0199584960938,
+                    112.86173248291016
+                  ],
+                  [
+                    85.10399627685547,
+                    115.73312377929688,
+                    542.0199584960938,
+                    133.02175903320312
+                  ],
+                  [
+                    85.10399627685547,
+                    135.89309692382812,
+                    170.65902709960938,
+                    153.18173217773438
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 2,
+            "similarity_content": [
+              {
+                "content": "CNTT đóng vai trò quan trọng trong nhiều lĩnh vực như giáo dục, y tế, \nkinh doanh, giải trí và chính phủ.",
+                "rects": [
+                  [
+                    173.7564697265625,
+                    135.89309692382812,
+                    542.0199584960938,
+                    153.18173217773438
+                  ],
+                  [
+                    85.10399627685547,
+                    156.05307006835938,
+                    260.2099914550781,
+                    173.34170532226562
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 2,
+            "similarity_content": [
+              {
+                "content": "Việc ứng dụng CNTT không chỉ giúp nâng cao hiệu \nquả và chất lượng trong các lĩnh vực này mà còn thúc đẩy sự đổi mới và sáng tạo.",
+                "rects": [
+                  [
+                    263.9165344238281,
+                    156.05307006835938,
+                    542.0199584960938,
+                    173.34170532226562
+                  ],
+                  [
+                    85.10399627685547,
+                    176.33309936523438,
+                    527.8599853515625,
+                    193.62173461914062
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 2,
+            "similarity_content": [
+              {
+                "content": "9 \nTrong giáo dục, CNTT giúp tiếp cận tri thức một cách nhanh chóng và linh hoạt, tạo \nđiều kiện cho học tập từ xa và học tập suốt đời.",
+                "rects": [
+                  [
+                    532.1627197265625,
+                    176.33309936523438,
+                    541.9863891601562,
+                    193.62173461914062
+                  ],
+                  [
+                    85.10399627685547,
+                    196.49307250976562,
+                    542.0199584960938,
+                    213.78170776367188
+                  ],
+                  [
+                    85.10399627685547,
+                    216.65310668945312,
+                    333.19287109375,
+                    233.94174194335938
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 2,
+            "similarity_content": [
+              {
+                "content": "Trong y tế, CNTT cải thiện quản lý hồ \nsơ bệnh nhân, chẩn đoán và điều trị bệnh, mang lại dịch vụ chăm sóc sức khỏe tốt hơn.",
+                "rects": [
+                  [
+                    336.6531677246094,
+                    216.65310668945312,
+                    542.02001953125,
+                    233.94174194335938
+                  ],
+                  [
+                    85.10399627685547,
+                    236.84310913085938,
+                    538.7660522460938,
+                    254.13174438476562
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 2,
+            "similarity_content": [
+              {
+                "content": "Trong kinh doanh, CNTT hỗ trợ quản lý hiệu quả, tăng cường khả năng cạnh tranh và \nmở rộng thị trường.",
+                "rects": [
+                  [
+                    85.10399627685547,
+                    257.0030822753906,
+                    541.9766845703125,
+                    274.2917175292969
+                  ],
+                  [
+                    85.10399627685547,
+                    277.1631164550781,
+                    187.09999084472656,
+                    294.4517517089844
+                  ]
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "ĐATN_NguyễnĐứcToàn_1451020238.pdf",
+        "similarity_value": 26,
+        "similarity_box_sentences": [
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "Trên cơ \nsở những lý do trên, tôi cam kết thực hiện đề tài này với mong muốn đóng góp vào sự \nphát triển của ngành xây dựng và hỗ trợ các doanh nghiệp xây dựng trong việc quản lý \nvật liệu một cách hiệu quả và bền vững hơn.",
+                "rects": [
+                  [
+                    498.0831604003906,
+                    259.10113525390625,
+                    541.965576171875,
+                    273.45330810546875
+                  ],
+                  [
+                    85.10399627685547,
+                    277.1631164550781,
+                    542.02001953125,
+                    294.4517517089844
+                  ],
+                  [
+                    85.10399627685547,
+                    297.4430847167969,
+                    541.990234375,
+                    314.7317199707031
+                  ],
+                  [
+                    85.10399627685547,
+                    317.60308837890625,
+                    315.5458679199219,
+                    334.8917236328125
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "CƠ SỞ LÝ THUYẾT VÀ CÔNG NGHỆ SỬ DỤNG \n \n2.1 Giới thiệu về ngành công nghệ thông tin  \nCông nghệ thông tin (CNTT) là lĩnh vực nghiên cứu và ứng dụng công nghệ để quản lý \nvà xử lý thông tin.",
+                "rects": [
+                  [
+                    207.61859130859375,
+                    398.3597412109375,
+                    498.6999816894531,
+                    416.3093566894531
+                  ],
+                  [
+                    311.92999267578125,
+                    418.65972900390625,
+                    315.16998291015625,
+                    436.6093444824219
+                  ],
+                  [
+                    85.10399627685547,
+                    438.7030944824219,
+                    321.30999755859375,
+                    455.9917297363281
+                  ],
+                  [
+                    85.10399627685547,
+                    458.86309814453125,
+                    541.9935913085938,
+                    476.1517333984375
+                  ],
+                  [
+                    85.10399627685547,
+                    479.0231018066406,
+                    180.12559509277344,
+                    496.3117370605469
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "Nó bao gồm nhiều lĩnh vực khác nhau như lập trình, mạng máy tính, \ncơ sở dữ liệu, an ninh mạng, trí tuệ nhân tạo, và nhiều hơn nữa.",
+                "rects": [
+                  [
+                    183.24896240234375,
+                    479.0231018066406,
+                    541.9677124023438,
+                    496.3117370605469
+                  ],
+                  [
+                    85.10399627685547,
+                    499.1830749511719,
+                    408.78424072265625,
+                    516.4717407226562
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "CNTT đóng vai trò quan \ntrọng trong hầu hết mọi lĩnh vực của cuộc sống hiện đại, từ truyền thông, giáo dục, y tế, \nkinh doanh đến giải trí.",
+                "rects": [
+                  [
+                    411.67431640625,
+                    501.2811279296875,
+                    541.9351806640625,
+                    515.63330078125
+                  ],
+                  [
+                    85.10399627685547,
+                    519.463134765625,
+                    542.0199584960938,
+                    536.7517700195312
+                  ],
+                  [
+                    85.10399627685547,
+                    539.6231689453125,
+                    205.94430541992188,
+                    556.9118041992188
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "Một số lĩnh vực trong ngành CNTT bao gồm:  \n+ Phát triển phần mềm: Liên quan đến việc thiết kế, lập trình và duy trì các ứng dụng \nphần mềm phục vụ cho nhiều mục đích khác nhau, từ ứng dụng di động, trang web cho \nđến phần mềm quản lý doanh nghiệp.",
+                "rects": [
+                  [
+                    209.28799438476562,
+                    539.6231689453125,
+                    453.3399963378906,
+                    556.9118041992188
+                  ],
+                  [
+                    85.10399627685547,
+                    559.7831420898438,
+                    542.0199584960938,
+                    577.07177734375
+                  ],
+                  [
+                    85.10399627685547,
+                    579.97314453125,
+                    542.0011596679688,
+                    597.2617797851562
+                  ],
+                  [
+                    85.10399627685547,
+                    600.1331176757812,
+                    280.3699951171875,
+                    617.4217529296875
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "+ Quản trị hệ thống mạng: Bao gồm việc thiết kế, cài đặt, cấu hình và duy trì hệ thống \nmạng để đảm bảo kết nối thông tin thông suốt trong một tổ chức.",
+                "rects": [
+                  [
+                    85.10399627685547,
+                    620.2930908203125,
+                    542.0199584960938,
+                    637.5817260742188
+                  ],
+                  [
+                    85.10399627685547,
+                    640.5731201171875,
+                    422.8299865722656,
+                    657.8617553710938
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "+ Cơ sở dữ liệu: Nghiên cứu và phát triển các phương pháp lưu trữ, quản lý và truy vấn \ndữ liệu một cách hiệu quả, phục vụ cho nhiều ứng dụng khác nhau.",
+                "rects": [
+                  [
+                    85.10399627685547,
+                    660.733154296875,
+                    542.0199584960938,
+                    678.0217895507812
+                  ],
+                  [
+                    85.10399627685547,
+                    680.8931274414062,
+                    433.7294006347656,
+                    698.1817626953125
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "+ An ninh mạng: Tập trung vào việc bảo vệ hệ thống và dữ liệu khỏi các mối đe dọa và \ntấn công từ bên ngoài, bao gồm cả việc ngăn chặn virus, tấn công mạng và các hoạt động \nxâm phạm khác.",
+                "rects": [
+                  [
+                    85.10399627685547,
+                    701.0531005859375,
+                    542.0315551757812,
+                    718.3417358398438
+                  ],
+                  [
+                    85.10399627685547,
+                    721.213134765625,
+                    542.003662109375,
+                    738.5017700195312
+                  ],
+                  [
+                    85.10399627685547,
+                    741.3931274414062,
+                    170.51841735839844,
+                    758.6817626953125
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 2,
+            "similarity_content": [
+              {
+                "content": "+ Trí tuệ nhân tạo (AI): Là lĩnh vực phát triển các hệ thống máy tính thông minh có khả \nnăng học hỏi, suy nghĩ và thực hiện các tác vụ như con người.",
+                "rects": [
+                  [
+                    85.10399627685547,
+                    55.113067626953125,
+                    542.02001953125,
+                    72.4017105102539
+                  ],
+                  [
+                    85.10399627685547,
+                    75.41311645507812,
+                    407.9499816894531,
+                    92.7017593383789
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 2,
+            "similarity_content": [
+              {
+                "content": "CNTT đóng vai trò quan trọng trong nhiều lĩnh vực như giáo dục, y tế, \nkinh doanh, giải trí và chính phủ.",
+                "rects": [
+                  [
+                    173.7564697265625,
+                    135.89309692382812,
+                    542.0199584960938,
+                    153.18173217773438
+                  ],
+                  [
+                    85.10399627685547,
+                    156.05307006835938,
+                    260.2099914550781,
+                    173.34170532226562
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 2,
+            "similarity_content": [
+              {
+                "content": "+ Công nghệ đám mây: Liên quan đến việc cung cấp tài nguyên công nghệ như lưu trữ, \nxử lý và ứng dụng qua internet, cho phép người dùng truy cập vào dữ liệu và ứng dụng \nmọi lúc mọi nơi.",
+                "rects": [
+                  [
+                    85.10399627685547,
+                    95.57308959960938,
+                    542.0199584960938,
+                    112.86173248291016
+                  ],
+                  [
+                    85.10399627685547,
+                    115.73312377929688,
+                    542.0199584960938,
+                    133.02175903320312
+                  ],
+                  [
+                    85.10399627685547,
+                    135.89309692382812,
+                    170.65902709960938,
+                    153.18173217773438
+                  ]
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "DATN9 ĐỖ HOÀNG LINH_1451020135_bansuatheoyeucauHĐ.pdf",
+        "similarity_value": 17,
+        "similarity_box_sentences": [
+          {
+            "pageNumber": 0,
+            "similarity_content": [
+              {
+                "content": "Ứng dụng này sẽ giúp các doanh nghiệp xây dựng theo dõi và quản lý tồn \nkho vật liệu, tạo và quản lý các đơn đặt hàng một cách hiệu quả, từ đó tối ưu hóa quá \ntrình quản lý và giảm thiểu rủi ro và chi phí.",
+                "rects": [
+                  [
+                    159.86000061035156,
+                    410.2630920410156,
+                    542.0199584960938,
+                    427.5517272949219
+                  ],
+                  [
+                    85.10399627685547,
+                    430.5430908203125,
+                    541.95361328125,
+                    447.83172607421875
+                  ],
+                  [
+                    85.10399627685547,
+                    450.7030944824219,
+                    316.6310729980469,
+                    467.9917297363281
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "Sự phát triển của công nghệ thông tin mở ra nhiều cơ hội mới trong việc quản lý vật liệu \nxây dựng.",
+                "rects": [
+                  [
+                    85.10399627685547,
+                    75.41311645507812,
+                    542.0199584960938,
+                    92.7017593383789
+                  ],
+                  [
+                    85.10399627685547,
+                    95.57308959960938,
+                    136.4600067138672,
+                    112.86173248291016
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "Trên cơ \nsở những lý do trên, tôi cam kết thực hiện đề tài này với mong muốn đóng góp vào sự \nphát triển của ngành xây dựng và hỗ trợ các doanh nghiệp xây dựng trong việc quản lý \nvật liệu một cách hiệu quả và bền vững hơn.",
+                "rects": [
+                  [
+                    498.0831604003906,
+                    259.10113525390625,
+                    541.965576171875,
+                    273.45330810546875
+                  ],
+                  [
+                    85.10399627685547,
+                    277.1631164550781,
+                    542.02001953125,
+                    294.4517517089844
+                  ],
+                  [
+                    85.10399627685547,
+                    297.4430847167969,
+                    541.990234375,
+                    314.7317199707031
+                  ],
+                  [
+                    85.10399627685547,
+                    317.60308837890625,
+                    315.5458679199219,
+                    334.8917236328125
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "Nó bao gồm nhiều lĩnh vực khác nhau như lập trình, mạng máy tính, \ncơ sở dữ liệu, an ninh mạng, trí tuệ nhân tạo, và nhiều hơn nữa.",
+                "rects": [
+                  [
+                    183.24896240234375,
+                    479.0231018066406,
+                    541.9677124023438,
+                    496.3117370605469
+                  ],
+                  [
+                    85.10399627685547,
+                    499.1830749511719,
+                    408.78424072265625,
+                    516.4717407226562
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 1,
+            "similarity_content": [
+              {
+                "content": "+ An ninh mạng: Tập trung vào việc bảo vệ hệ thống và dữ liệu khỏi các mối đe dọa và \ntấn công từ bên ngoài, bao gồm cả việc ngăn chặn virus, tấn công mạng và các hoạt động \nxâm phạm khác.",
+                "rects": [
+                  [
+                    85.10399627685547,
+                    701.0531005859375,
+                    542.0315551757812,
+                    718.3417358398438
+                  ],
+                  [
+                    85.10399627685547,
+                    721.213134765625,
+                    542.003662109375,
+                    738.5017700195312
+                  ],
+                  [
+                    85.10399627685547,
+                    741.3931274414062,
+                    170.51841735839844,
+                    758.6817626953125
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 2,
+            "similarity_content": [
+              {
+                "content": "9 \nTrong giáo dục, CNTT giúp tiếp cận tri thức một cách nhanh chóng và linh hoạt, tạo \nđiều kiện cho học tập từ xa và học tập suốt đời.",
+                "rects": [
+                  [
+                    532.1627197265625,
+                    176.33309936523438,
+                    541.9863891601562,
+                    193.62173461914062
+                  ],
+                  [
+                    85.10399627685547,
+                    196.49307250976562,
+                    542.0199584960938,
+                    213.78170776367188
+                  ],
+                  [
+                    85.10399627685547,
+                    216.65310668945312,
+                    333.19287109375,
+                    233.94174194335938
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "pageNumber": 2,
+            "similarity_content": [
+              {
+                "content": "+ Công nghệ đám mây: Liên quan đến việc cung cấp tài nguyên công nghệ như lưu trữ, \nxử lý và ứng dụng qua internet, cho phép người dùng truy cập vào dữ liệu và ứng dụng \nmọi lúc mọi nơi.",
+                "rects": [
+                  [
+                    85.10399627685547,
+                    95.57308959960938,
+                    542.0199584960938,
+                    112.86173248291016
+                  ],
+                  [
+                    85.10399627685547,
+                    115.73312377929688,
+                    542.0199584960938,
+                    133.02175903320312
+                  ],
+                  [
+                    85.10399627685547,
+                    135.89309692382812,
+                    170.65902709960938,
+                    153.18173217773438
+                  ]
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -92,9 +92,9 @@ The system employs a three-tier architecture:
    # Start PostgreSQL service
    docker run -d \
      --name postgres \
-     -e POSTGRES_USER=similarity \
-     -e POSTGRES_PASSWORD=123456 \
-     -e POSTGRES_DB=Sentence_Similarity \
+     -e POSTGRES_USER=username \
+     -e POSTGRES_PASSWORD=password \
+     -e POSTGRES_DB=database_name \
      -p 5434:5432 \
      postgres:12
    ```
@@ -134,7 +134,7 @@ The system employs a three-tier architecture:
 
    # Edit .env with your settings
    # Example configuration:
-   DATABASE_URL=postgresql://similarity:123456@localhost:5434/Sentence_Similarity
+   DATABASE_URL=postgresql://username:password@localhost:5434/database_name
    MILVUS_HOST=localhost
    MILVUS_PORT=19530
    ```

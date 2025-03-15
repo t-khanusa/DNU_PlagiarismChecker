@@ -1,5 +1,6 @@
-from postgreSQL.postgre_database import SessionLocal, PDFFile, Sentence, engine
-from create_milvus_db import insert_vectors, collection
+from config.postgres_db import SessionLocal, engine
+from models.model import PDFFile, Sentence
+from milvus_db.create_milvus_db import insert_vectors, collection
 from sentence_transformers import SentenceTransformer
 from concurrent.futures import ThreadPoolExecutor
 from typing import List, Tuple, Dict, Optional
@@ -19,9 +20,10 @@ import os
 
 class CorpusCreator:
     """Creates and manages a corpus of document embeddings for similarity search."""
-    
+    # current_dir = os.path.abspath(os.path.dirname(__file__))  # Lấy thư mục hiện tại
+    # parent_dir = os.path.abspath(os.path.join(current_dir, ".."))
     def __init__(self, model_path="./embedding_models/snapshots/ca1bafe673133c99ee38d9782690a144758cb338"):
-        """Initialize the corpus creator with a sentence transformer model."""
+        """Initialize the corpus creator with a sentence transformer model.""" 
         self.model = SentenceTransformer(model_path)
         self.model.max_seq_length = 256
         self.batch_size = 512
@@ -59,6 +61,7 @@ class CorpusCreator:
     def read_pdf(self, file_path: str) -> str:
         """Extract and clean text from a PDF file."""
         try:
+            print("filepath", file_path)
             doc = fitz.open(file_path)
             for page_num in range(len(doc)):
                 page = doc[page_num]  # Get the page

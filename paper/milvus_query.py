@@ -1,7 +1,7 @@
 from pymilvus import connections, Collection, utility, MilvusClient
 import numpy as np
 import time
-from create_corpus import CorpusCreator
+from routers.create_corpus import CorpusCreator
 from sklearn.metrics.pairwise import cosine_similarity
 from create_milvus_db import collection
 

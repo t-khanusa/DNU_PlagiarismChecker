@@ -1,7 +1,7 @@
 from postgreSQL.postgre_database import SessionLocal, PDFFile, Sentence
 from sentence_transformers import SentenceTransformer
-from create_milvus_db import collection
-from create_corpus import CorpusCreator
+from routers.create_milvus_db import collection
+from routers.create_corpus import CorpusCreator
 from typing import List, Dict, Optional, Tuple, Set
 from tqdm import tqdm
 import numpy as np
@@ -11,6 +11,13 @@ import os
 import json
 import re
 from difflib import SequenceMatcher
+import nltk
+import threading
+
+nltk.download('punkt')
+
+results = {}
+lock = threading.Lock()
 
 # Initialize the corpus creator with the embedding model
 checker = CorpusCreator()
@@ -161,8 +168,9 @@ checker = CorpusCreator()
     
 #     print(f"Found locations for {len(found_sentences)} out of {len(sentences)} sentences in {time.time() - start_time:.2f}s")
 #     return sentence_locations
-def check_box(doc, sentences):    
+def check_box(doc, sentences, key):    
     # Mapping of sentences to their locations
+    print("?????????????????????", key)
     sentence_locations = {}
 
     # Track which sentences we've found
@@ -190,7 +198,9 @@ def check_box(doc, sentences):
                 })
                 
                 found_sentences.add(sentence)
-    return sentence_locations
+    with lock:
+        results[key] = sentence_locations 
+        # return 
 
 def check_plagiarism_details(file_path: str, min_similarity: float = 0.9) -> Dict:
     """
@@ -307,64 +317,57 @@ def check_plagiarism_details(file_path: str, min_similarity: float = 0.9) -> Dic
     # Calculate total number of sentences for percentage calculation
     total_sentences = len(raw_sentences)
     
-    for docs in top_docs:
-        (filename, matched_sentences) = docs
-
-        # Process each sentence that matches with this document
-        sentence_locations = check_box(document, matched_sentences)
-
-        # Initialize page_sentences dictionary to store sentences by page number
-        page_sentences = {}
-        
-        # Process each matched sentence and its locations
-        for sentence, locations in sentence_locations.items():
-            # Skip if no locations found for this sentence
-            if not locations:
-                continue
-                
-            # Process each location where this sentence was found
-            for location in locations:
-                page_num = location["page_num"]
-                
-                if page_num not in page_sentences:
-                    page_sentences[page_num] = []
-                
-                # Check if this sentence is already added to this page
-                found = False
-                for existing in page_sentences[page_num]:
-                    if existing['content'] == sentence:
-                        found = True
-                        break
-                
-                if not found:
-                    page_sentences[page_num].append({
-                        'content': sentence,
-                        'rects': location["rects"]
-                    })
-        
-        # Format page sentences for output
-        similarity_box_sentences = []
-        for page_num, sentences in sorted(page_sentences.items()):
-            similarity_box_sentences.append({
-                'pageNumber': page_num,
-                'similarity_content': sentences
-            })
-        
-        # Calculate similarity percentage based on number of matched sentences
-        similarity_value = 0
-        if total_sentences > 0:
-            # Count total sentences found in this document
-            total_matched = len(matched_sentences)
-            similarity_value = int((total_matched / total_sentences) * 100)
-            # Cap at 100%
-            similarity_value = min(similarity_value, 100)
-        
-        # Add document to similarity documents
-        similarity_documents.append({
-            'name': filename,
-            'similarity_value': similarity_value,
-            'similarity_box_sentences': similarity_box_sentences
-        })
+    result = {
+        "similarity_documents": []
+    }
+    found_sentences = set()
+    sentence_locations = {}
+    # for docs in top_docs:
+    #     (filename, matched_sentences) = docs
+    threads = []
+    num_threads = min(5, len(top_docs))
+    for i in range(num_threads):
+        thread = threading.Thread(target=check_box, args=(document, top_docs[i][1], str(i)))
+        threads.append(thread)
+        thread.start()
+    for thread in threads:
+        thread.join()
+    # print("Kết quả tổng hợp:", results)
+    # for page_num, page in enumerate(document):
+    #     for docs in top_docs:
+    #         (filename, matched_sentences) = docs
+    #         similarity_box_sentences_list = []
+    #         for item, sentence in enumerate(matched_sentences):
+    #             if item not in found_sentences:
+    #                 text_instances = page.search_for(sentence)
+                    
+    #                 if len(text_instances) > 0:
+    #                     print("???", text_instances)
+    #                     if sentence not in sentence_locations:
+    #                         sentence_locations[sentence] = []
+                        
+    #                     rects = [
+    #                         [float(rect.x0), float(rect.y0), float(rect.x1), float(rect.y1)] 
+    #                         for rect in text_instances
+    #                     ]
+    #                     found_sentences.add(item)
+    #                     similarity_box_sentences_list.append({
+    #                         "pageNumber": page_num,
+    #                         "similarity_content": {
+    #                             "content": sentence,
+    #                             "rects": rects
+    #                         }
+    #                     })
+    #         similarity_value = 0
+    #         if total_sentences > 0:
+    #             total_matched = len(matched_sentences)
+    #             similarity_value = int((total_matched / total_sentences) * 100)
+    #             similarity_value = min(similarity_value, 100)
+    #         result['similarity_documents'].append({
+    #             'name': filename,
+    #             'similarity_value': similarity_value,
+    #             'similarity_box_sentences': similarity_box_sentences_list
+    #         })
     
     # Get page size from the document
     page_size = {"width": 595.0, "height": 842.0}  # Default A4 size

@@ -1,21 +1,26 @@
-from postgreSQL.postgre_database import SessionLocal, PDFFile, Sentence
-from get_pdffile_aws import read_presigned_url
+from config.postgres_db import SessionLocal
+from config.conf import BASEURL
+from models.model import PDFFile, Sentence
+from aws_file.get_pdffile_aws import read_presigned_url
 from fastapi.responses import JSONResponse
-from create_milvus_db import collection
-from create_corpus import CorpusCreator
+from fastapi import APIRouter, BackgroundTasks
+from milvus_db.create_milvus_db import collection
+from milvus_db.create_corpus import CorpusCreator
 from typing import List, Dict, Tuple
 import numpy as np
 import fitz
 import time
+import requests
 from tqdm import tqdm
 import os
-from fastapi import FastAPI
-import uvicorn
+import json
 
+router = APIRouter(
+    tags=["plagiarism-checker"],
+)
 
-app = FastAPI()
+baseURL = BASEURL
 checker = CorpusCreator()
-
 
 def check_box(doc, sentences):    
     # Mapping of sentences to their locations
@@ -48,24 +53,25 @@ def check_box(doc, sentences):
                 found_sentences.add(sentence)
     return sentence_locations
 
-@app.get("/plagiarism_checker/")
-async def check_plagiarism(subject_id: str, file_name: str, min_similarity: float = 0.9) -> Dict:
+@router.post("/plagiarism_checker/")
+async def check_plagiarism(subject_id: str, file_name: str, ) -> Dict:
+    min_similarity = 0.9
     """
     Check document for plagiarism against the vector database.
     
     Args:
         subject_id: Subject ID
         file_name: File name
-        min_similarity: Minimum similarity threshold (default 0.9)
 
     Returns: 
         "total_percent": float,
     """
 
-    try:
-        file_path = read_presigned_url(subject_id, file_name)
-    except Exception as e:
-        return {"error": "No valid file path found"}
+    # try:
+    file_path = read_presigned_url(subject_id, file_name)
+        
+    # except Exception as e:
+    #     return {"error": "No valid file path found"}
 
     # Process document to get sentences and embeddings
     raw_sentences, embeddings = checker.process_document(file_path)
@@ -111,16 +117,30 @@ async def check_plagiarism(subject_id: str, file_name: str, min_similarity: floa
                     matched_sentence_set.add(current_sentence)
     return JSONResponse(content={"total_percent": len(matched_sentence_set) / len(raw_sentences) * 100}, status_code=200)
 
+@router.post("/plagiarism_checker_details/") 
+async def check_file(background_tasks: BackgroundTasks, subject_id: str, file_name: str, file_check_id: str):
+    url = f"{baseURL}/api/checker/files/{file_check_id}/result"
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    time_start = time.time()
+    try:
+        file_path = read_presigned_url(subject_id, file_name)
+        requests.request("POST", url, headers=headers)
+        background_tasks.add_task(check_plagiarism_details, file_path, file_check_id, time_start)
+    except Exception as e:
+        return JSONResponse(content={"message": 'Không tìm thấy file'}, status_code=200)
+    
+    return JSONResponse(content={"message": 'Tìm thấy file'}, status_code=200)
 
-@app.get("/plagiarism_checker_details/")    
-async def check_plagiarism_details(subject_id: str, file_name: str, min_similarity: float = 0.9) -> Dict:
+
+# @router.post("/plagiarism_checker_details/")    
+async def check_plagiarism_details(file_path, file_check_id, time_start) -> Dict:
     """
     Check document for plagiarism against the vector database.
-    
     Args:
         subject_id: Subject ID
         file_name: File name
-        min_similarity: Minimum similarity threshold (default 0.9)
         
     Returns: 
         Dict with plagiarism information in the format required for visualization:
@@ -148,11 +168,17 @@ async def check_plagiarism_details(subject_id: str, file_name: str, min_similari
             }
         }
     """
-    start_time = time.time()
-    try:
-        file_path = read_presigned_url(subject_id, file_name)
-    except Exception as e:
-        return {"error": "No valid file path found"}
+    min_similarity = 0.9
+    url = f"{baseURL}/api/checker/files/{file_check_id}/result"
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    
+    # try:
+    #     file_path = read_presigned_url(subject_id, file_name)
+    #     result = requests.request("POST", url, headers=headers)
+    # except Exception as e:
+    #     return {"error": "No valid file path found"}
 
     filename = os.path.basename(file_path)
     # Process document to get sentences and embeddings
@@ -183,10 +209,12 @@ async def check_plagiarism_details(subject_id: str, file_name: str, min_similari
     batch_size = len(raw_sentences)
     matched_sentence_set = set()
     # with tqdm(total=len(raw_sentences), desc="Checking for plagiarism") as pbar:
+
+    
     for i in range(0, len(raw_sentences), batch_size):
         batch_end = min(i + batch_size, len(raw_sentences))
         batch_vectors = embeddings[i:batch_end].tolist()
-        
+            
         start_search = time.time()
         # Search Milvus database
         search_results = collection.search(
@@ -196,7 +224,7 @@ async def check_plagiarism_details(subject_id: str, file_name: str, min_similari
             limit=1,
             output_fields=["pdf_id", "sentence_id"]
         )
-        end_search = time.time()
+        end_search = time.time()    
         print(f"Time taken to search Milvus: {end_search - start_search:.2f} seconds")
 
         with SessionLocal() as db:
@@ -212,13 +240,12 @@ async def check_plagiarism_details(subject_id: str, file_name: str, min_similari
                         
                         # Retrieve matching document
                         pdf_file = db.query(PDFFile).filter(PDFFile.pdf_id == pdf_id).first()
-
+                            
                         if pdf_file.filename not in document_matches:
                             document_matches[pdf_file.filename] = []
                         document_matches[pdf_file.filename].append(current_sentence) 
                         matched_sentence_set.add(current_sentence)
-            
-
+        
     # Get top 5 similar documents
     top_docs = sorted(document_matches.items(), 
                      key=lambda x: len(x[1]), 
@@ -284,28 +311,47 @@ async def check_plagiarism_details(subject_id: str, file_name: str, min_similari
         
         # Add document to similarity documents
         similarity_documents.append({
-            'name': filename,
-            'similarity_value': similarity_value,
-            'similarity_box_sentences': similarity_box_sentences
+            # 'name': filename,
+            # 'similarity_value': similarity_value,
+            "file_resource_id": "0a58b8ab-60e7-42e3-b765-6d633a1f2d44",
+            'result': similarity_box_sentences
         })
-    
+    time_process = time.time() - time_start
     # Get page size from the document
-    page_size = {"width": 595.0, "height": 842.0}  # Default A4 size
-    if document and hasattr(document, 'mediabox'):
-        page_size = {
-            "width": document.mediabox[2],
-            "height": document.mediabox[3]
-        }
+    # page_size = {"width": 595.0, "height": 842.0}  # Default A4 size
+    # if document and hasattr(document, 'mediabox'):
+    #     page_size = {
+    #         "width": document.mediabox[2],
+    #         "height": document.mediabox[3]
+    #     }
     
     # Format final output
     result = {
-        "data": {
-            "total_percent": len(matched_sentence_set) / total_sentences * 100,  # Always 100% for the document being checked
-            "size_page": page_size,
-            "similarity_documents": similarity_documents
-        }
+        
+        # "result": {
+        #     # "total_percent": len(matched_sentence_set) / total_sentences * 100,  # Always 100% for the document being checked
+        #     # "size_page": page_size,
+        #     "file_resource_id": "0a58b8ab-60e7-42e3-b765-6d633a1f2d44",
+        #     "similarity_documents": similarity_documents
+        # }
+        # "result": similarity_documents
+        "file_check_id": file_check_id,
+        "result": similarity_documents,
+        "create_at": "2024-06-12T15:04:05Z",
+        "duration": time_process
     }
-    
+    output_file = "abcd.json"
+    with open(output_file, "w", encoding="utf-8") as f:
+        json.dump(result, f, ensure_ascii=False, indent=2)
+    headers_auth = {
+        'Content-Type': 'application/json',
+        'Cookie': 'jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDMwOTExNDUsImlzcyI6Ijg0MDhhZjZkLWZlOGMtNDM4NS05N2IyLTU1MzFiNjIwM2U1OSIsInVzZXJuYW1lIjoiaGluZTEyIiwiZW1haWwiOiJoaW5lMTIiLCJyb2xlIjoic3UifQ.bnNPUsjj5ADfEgRbNL5Q7ScHsrjds1Sat31o_1rjKVw'
+    }
+    # print("result, ", result)
+
+
+    response = requests.request("POST", url, headers=headers_auth, data=json.dumps(result))
+    print("response", response.content)
     # # Print summary statistics
     # print(f"\nPlagiarism Check Summary:")
     # print(f"Total sentences: {total_sentences}")
@@ -316,40 +362,8 @@ async def check_plagiarism_details(subject_id: str, file_name: str, min_similari
     #     sent_count = sum(len(page["similarity_content"]) for page in doc["similarity_box_sentences"])
     #     print(f"- {doc['name']}: {doc['similarity_value']}% ({sent_count} sentences located)")
     
-    print(f"Processing time: {time.time() - start_time:.2f} seconds")
-    print(len(matched_sentence_set) / total_sentences * 100)
-    print(len(matched_sentence_set))
-    return JSONResponse(content=result, status_code=200)
+    # print(f"Processing time: {time.time() - start_time:.2f} seconds")
+    # print(len(matched_sentence_set) / total_sentences * 100)
+    # print(len(matched_sentence_set))
+    return {"message": "Thành công"}
 
-
-
-def main():
-    """Main function to run plagiarism checks"""
-    # try:
-    # Example usage
-    file_to_check = "/hdd1/similarity/CheckSimilarity/database/IT/PhamQuangThanh__DATN.pdf"
-    results = check_plagiarism(file_to_check)
-    
-    # Print summary
-    print("\nPlagiarism Check Summary:")
-    print(f"Total Similarity Percentage: {results['total_similarity_percent']:.2f}%")
-    
-    print("\nTop Similar Documents:")
-    for doc, score in zip(results['top_similarity_documents'], results['top_similarity_values']):
-        print(f"- {doc}: {score:.2f}")
-    
-    # print("\nDetailed Sentence Matches:")
-    # for sentence, matches in results['similarity_sentences'].items():
-    #     print(f"\nOriginal: {sentence}")
-    #     for match in matches:
-    #         print(f"- Found in: {match['document']}")
-    #         print(f"  Similarity: {match['similarity_score']:.2f}")
-    #         print(f"  Text: {match['matched_text']}")
-    
-    print(f"\nProcessing Time: {results['processing_time']:.2f} seconds")
-
-    # except:
-    #     print("Error")
-
-if __name__ == "__main__":
-    main() 
