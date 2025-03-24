@@ -173,7 +173,7 @@ def find_similar_files(file_data, similarity_threshold=0.9, min_similarity_perce
     return similarity_scores
 
 
-def format_results_to_json(similar_pairs, file_data, threshold, time_taken):
+def format_results_to_json(similar_pairs, file_data, threshold, time_taken, concat, total_file):
 
     pairs = []
     
@@ -198,12 +198,14 @@ def format_results_to_json(similar_pairs, file_data, threshold, time_taken):
         pairs.append(pair_data)
     
     result = {
-        "data": {
-            "total_pairs": int(len(similar_pairs)),
-            "threshold": threshold,
+        "result":{
             "pairs": pairs,
-            "time_taken_seconds": round(time_taken, 2)
-        }
+            "threshold": threshold,
+            "total_pairs": int(len(similar_pairs)),
+        },
+        "concat": concat,
+        "total_file": total_file,
+        "duration": round(time_taken, 2),
     }
     
     return result
