@@ -2,9 +2,9 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from config import postgres_db
-from routers import plagiarism_checker,zip_checker
+from routers import plagiarism_checker,zip_checker,update_database
 
-postgres_db .Base.metadata.create_all(bind=postgres_db.engine)
+postgres_db.Base.metadata.create_all(bind=postgres_db.engine)
 app = FastAPI()
 
 origins = [
@@ -25,6 +25,7 @@ async def root():
 
 app.include_router(plagiarism_checker.router)
 app.include_router(zip_checker.router)
+app.include_router(update_database.router)
 
 if __name__ == "__main__":
     uvicorn.run(
