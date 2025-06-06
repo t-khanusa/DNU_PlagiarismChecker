@@ -1,33 +1,52 @@
-from pymilvus import connections, FieldSchema, CollectionSchema, DataType, Collection, utility
+from pymilvus import connections, FieldSchema, CollectionSchema, DataType, Collection, utility, db
 import numpy as np
 from config.conf import MILVUS_DB_NAME, MILVUS_HOST, MILVUS_PORT
 # from create_corpus import CorpusCreator
 # Connect to Milvus
 
 
+# # First connect to default database to create our target database
+# conn = connections.connect(host=MILVUS_HOST, port=MILVUS_PORT)
+
+# # Create database if it doesn't exist
+# try:
+#     # Check if database exists
+#     database_list = db.list_database()
+#     if MILVUS_DB_NAME not in database_list:
+#         db.create_database(MILVUS_DB_NAME)
+#         print(f"Created database: {MILVUS_DB_NAME}")
+#     else:
+#         print(f"Database {MILVUS_DB_NAME} already exists")
+# except Exception as e:
+#     print(f"Error checking/creating database: {e}")
+
+# # Now connect to our specific database
+# connections.disconnect("default")
 conn = connections.connect(host=MILVUS_HOST, port=MILVUS_PORT, db_name=MILVUS_DB_NAME)
-collection_name = "sentence_similarity"
-collection = Collection(name=collection_name)
+print(f"Connected to database: {MILVUS_DB_NAME}")
+
+# collection_name = "sentence_similarity"
+# collection = Collection(name=collection_name)
 
 # Define the schema for the collection
-# fields = [
-#     # Primary key from PostgreSQL - required for direct lookups and joins
-#     FieldSchema(name="sentence_id", dtype=DataType.INT64, is_primary=True, auto_id=False),
+fields = [
+    # Primary key from PostgreSQL - required for direct lookups and joins
+    FieldSchema(name="sentence_id", dtype=DataType.INT64, is_primary=True, auto_id=False),
     
-#     # Document context - required for filtering and ordering
-#     FieldSchema(name="pdf_id", dtype=DataType.INT64, description="Foreign key to PostgreSQL pdf_files.pdf_id"),
-#     FieldSchema(name="sentence_index", dtype=DataType.INT64, description="Position in document"),
+    # Document context - required for filtering and ordering
+    FieldSchema(name="pdf_id", dtype=DataType.INT64, description="Foreign key to PostgreSQL pdf_files.pdf_id"),
+    FieldSchema(name="sentence_index", dtype=DataType.INT64, description="Position in document"),
     
-#     # Vector data
-#     FieldSchema(name="sentence_vector", dtype=DataType.FLOAT_VECTOR, dim=768)
-# ]
-# schema = CollectionSchema(fields, "Sentence similarity collection with PostgreSQL alignment")
+    # Vector data
+    FieldSchema(name="sentence_vector", dtype=DataType.FLOAT_VECTOR, dim=768)
+]
+schema = CollectionSchema(fields, "Sentence similarity collection with PostgreSQL alignment")
 
 # Create or recreate the collection
-# collection_name = "sentence_similarity"
-# # if utility.has_collection(collection_name):
-# #     utility.drop_collection(collection_name)
-# collection = Collection(name=collection_name, schema=schema)
+collection_name = "sentence_similarity"
+# if utility.has_collection(collection_name):
+#     utility.drop_collection(collection_name)
+collection = Collection(name=collection_name, schema=schema)
 
 # Create IVF_FLAT index for faster similarity search
 index_params = {
@@ -54,17 +73,6 @@ collection.create_index(
     index_params={"index_type": "STL_SORT"}
 )
 
-
-
-
-
-
-
-# checker = CorpusCreator("./embedding_models/snapshots/ca1bafe673133c99ee38d9782690a144758cb338")
-# _, query_vectors1 = checker.process_document("/hdd1/similarity/CheckSimilarity/database/IT/1451020047_NGUYENHOANGDUONG.pdf")
-
-# print(query_vectors1.shape)
-# print(len(_))
 
 def insert_vectors(sentence_ids, pdf_ids, sentence_indices, vectors):
     """
