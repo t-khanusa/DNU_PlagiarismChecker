@@ -15,7 +15,7 @@ import nltk
 import time
 import re
 import os
-
+from sqlalchemy import text
 
 
 class CorpusCreator:
@@ -256,7 +256,7 @@ class CorpusCreator:
         # Test database connection
         try:
             with self.engine.connect() as conn:
-                conn.execute("SELECT 1")
+                conn.execute(text("SELECT 1"))
                 print("Successfully connected to PostgreSQL database")
         except Exception as e:
             print(f"Error connecting to database: {e}")
@@ -278,20 +278,20 @@ class CorpusCreator:
             print(f"\nError during corpus creation: {str(e)}")
             print(traceback.format_exc())
 
-# if __name__ == "__main__":
-#     # Initialize corpus creator
-#     creator = CorpusCreator()
+if __name__ == "__main__":
+    # Initialize corpus creator
+    creator = CorpusCreator()
     
-#     # Process folder
-#     folder_path = "/hdd1/similarity/CheckSimilarity/audio-test"
-#     start = time.time()
-#     creator.create_corpus(folder_path)
+    # Process folder
+    folder_path = "/project/similarity/CheckSimilarity/IT"
+    start = time.time()
+    creator.create_corpus(folder_path)
     
-#     print("Corpus creation completed!")
-#     print(f"Total time: {time.time()-start:.2f}s")
+    print("Corpus creation completed!")
+    print(f"Total time: {time.time()-start:.2f}s")
 
-#     # Print collection stats
-#     from pymilvus import connections, Collection
-#     connections.connect(host="localhost", port="19530", db_name="vector_database")
-#     collection = Collection(name="sentence_similarity")
-#     print(f"Number of vectors in collection: {collection.num_entities}")
+    # # Print collection stats
+    # from pymilvus import connections, Collection
+    # connections.connect(host="localhost", port="19530", db_name="vector_database")
+    # collection = Collection(name="sentence_similarity")
+    # print(f"Number of vectors in collection: {collection.num_entities}")

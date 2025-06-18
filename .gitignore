@@ -60,3 +60,18 @@ embedding_models/snapshots/
 
 # Documentation build
 docs/_build/
+
+# Node.js
+node_modules/
+package-lock.json
+
+# Generated result files
+plagiarism_check_*.json
+spell_check_*.json
+abcd.json
+
+# Extracted and temporary files
+extracted_files/
+unzip_folder/
+file_db/
+myfiles.zip

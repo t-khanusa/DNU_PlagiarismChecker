@@ -1,7 +1,7 @@
 from pymilvus import connections, utility, Collection
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
-from postgreSQL.postgre_database import Base
+from postgres_db import Base
 
 # PostgreSQL connection settings
 DATABASE_URL = "postgresql://similarity:123456@localhost:5434/Sentence_Similarity"
@@ -9,7 +9,7 @@ DATABASE_URL = "postgresql://similarity:123456@localhost:5434/Sentence_Similarit
 # Milvus connection settings
 MILVUS_HOST = "localhost"
 MILVUS_PORT = "19530"
-MILVUS_DB = "vector_database"
+MILVUS_DB = "default"
 MILVUS_ALIAS = "default"  # Adding default alias for Milvus connection
 
 def clear_postgresql():

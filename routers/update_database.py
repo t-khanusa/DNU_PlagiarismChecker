@@ -1,5 +1,6 @@
 from fastapi.responses import JSONResponse
 from fastapi import APIRouter, UploadFile, File, HTTPException, BackgroundTasks
+from milvus_db.create_corpus import CorpusCreator
 from config.conf import BASEURL
 import time
 import os
@@ -17,8 +18,10 @@ from zip_test import (
     format_results_to_json
 )
 
+checker = CorpusCreator()
+
 router = APIRouter(
-    tags=["zip-checker"],
+    tags=["update-database"],
 )
 
 baseURL = BASEURL
@@ -96,7 +99,7 @@ async def upload_zip_file(
         
         # Start processing in background
         background_tasks.add_task(
-            process_similarity_task, 
+            create_corpus_database, 
             zip_path=str(zip_path),
             extract_dir=str(job_extract_dir),
             concat=concat,
@@ -123,7 +126,7 @@ async def upload_zip_file(
             },
             status_code=409)
 
-async def process_similarity_task(
+async def create_corpus_database(
     zip_path: str,
     extract_dir: str,
     concat: str,
@@ -146,45 +149,15 @@ async def process_similarity_task(
             return
         
         print(f"Processing {len(pdf_files)} PDF files")
-        
-        # Process all files in parallel
-        file_data = process_files_parallel(pdf_files, max_workers=4)
-        
-        print(f"Finding similar documents")
-        
-        # Find similar file pairs
-        similar_pairs = find_similar_files(
-            file_data,
-            similarity_threshold=similarity_threshold,
-            min_similarity_percent=min_similarity_percent,
-            parallel=True,
-            max_workers=4
-        )
-        
-        # Calculate total time
-        end_time = time.time()
-        total_time = end_time - start_time
-        results = format_results_to_json(similar_pairs, file_data, min_similarity_percent, total_time, concat, total_file)
-        headers_auth = {
-            'Content-Type': 'application/json',
-            'Cookie': 'jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjMwODAyMTk1ODQsImlzcyI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMSIsImlkIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAxIiwidXNlcm5hbWUiOiJoaW5lIiwiZW1haWwiOiJoaW5lMTIxMkBnbWFpLmNvbSIsInJvbGUiOiJzdSJ9.6IKTlwvenS4rjVOIrsqr0JBx3bhQ7ZLwPX5Ta7pRUHw'
-        }
-        print("Concat: ", concat)
-        print("------------")
-        url = f"{baseURL}/api/private-check/{concat.split('&')[0]}/result"
-        response = requests.request("PUT", url, headers=headers_auth, data=json.dumps(results))
-        
-        print(f"Processing completed in {total_time:.2f} seconds. Found {len(similar_pairs)} similar file pairs.")
-        print(response.content)
-        # Clean up
-        cleanup_files(os.path.dirname(zip_path), extract_dir)
+        checker.create_corpus(extract_dir)
 
-        return {'message': "Xử lý thành công"}
-        
+
     except Exception as e:
         print(f"Error processing ZIP file: {str(e)}")
         # Clean up on error
-        cleanup_files(os.path.dirname(zip_path), extract_dir)
+        cleanup_files(os.path.dirname(zip_path), extract_dir)        
+
+
 
 def cleanup_files(upload_dir, extract_dir):
     """Clean up temporary directories after processing."""

@@ -1,12 +1,13 @@
 from config.postgres_db import SessionLocal
-from config.conf import BASEURL
+from config.conf import BASEURL, COOKIE
 from models.model import PDFFile, Sentence
-from aws_file.get_pdffile_aws import read_presigned_url
+from aws_file.get_pdffile_aws import read_presigned_url, check_file_in_s3
 from fastapi.responses import JSONResponse
 from fastapi import APIRouter, UploadFile, File, HTTPException, BackgroundTasks
 from milvus_db.create_milvus_db import collection
 from milvus_db.create_corpus import CorpusCreator
 from typing import List, Dict, Tuple
+from .spell_correction import spell_checker
 import numpy as np
 import fitz
 import time
@@ -17,6 +18,10 @@ import json
 import shutil
 from pathlib import Path
 import glob
+from datetime import datetime, timezone
+import asyncio
+from pydantic import BaseModel
+
 
 router = APIRouter(
     tags=["plagiarism-checker"],
@@ -24,6 +29,15 @@ router = APIRouter(
 
 baseURL = BASEURL
 checker = CorpusCreator()
+
+def run_spell_check_sync(file_path, file_check_id, time_start):
+    """Sync wrapper for spell_checker"""
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    try:
+        return loop.run_until_complete(spell_checker(file_path, file_check_id, time_start))
+    finally:
+        loop.close()
 
 def check_box(doc, sentences):    
     # Mapping of sentences to their locations
@@ -56,37 +70,89 @@ def check_box(doc, sentences):
                 found_sentences.add(sentence)
     return sentence_locations
 
-@router.post("/plagiarism_checker_details/") 
-async def check_file(background_tasks: BackgroundTasks, subject_id: str, file_name: str, file_check_id: str):
-    url = f"{baseURL}/api/checker/files/{file_check_id}/result"
-    headers = {
-        'Content-Type': 'application/json'
-    }
+# @router.get("/plagiarism_checker_details/") 
+# async def check_file(background_tasks: BackgroundTasks, subject_id: str, file_name: str, file_check_id: str):    
+#     print("File name: ", file_name)
+
+#     is_file_exist, error = check_file_in_s3(subject_id, file_name)
+#     if not is_file_exist:
+#         return JSONResponse(content={"message": 'Không tìm thấy file'}, status_code=404)
+#     else:
+#         JSONResponse(content={"message": 'Tìm thấy file'}, status_code=200)
+#     time_start = time.time()
+#     try:
+#         file_path = read_presigned_url(subject_id, file_name)
+#         print(f"Tải file thành công: {file_path}")
+        
+#     except Exception as e:
+#         print(f"Bug cmnr: {e}")
+#         return JSONResponse(content={"message": 'Không tải được file'}, status_code=400)
+    
+#     # Get the current event loop
+#     loop = asyncio.get_event_loop()
+    
+#     # Run both CPU-intensive tasks in separate threads
+#     task1 = loop.run_in_executor(None, check_plagiarism_details, file_path, file_check_id, time_start)
+#     task2 = loop.run_in_executor(None, run_spell_check_sync, file_path, file_check_id, time_start)
+    
+#     # Run tasks in background without waiting for completion
+#     background_tasks.add_task(asyncio.gather, task1, task2)
+
+#     return JSONResponse(content={"message": 'Tải file thành công'}, status_code=200)
+
+
+# Request body model
+class FileCheckRequest(BaseModel):
+    subject_id: str
+    file_name: str
+    file_check_id: str
+
+@router.post("/plagiarism_checker_details/")
+async def check_file_post(background_tasks: BackgroundTasks, data: FileCheckRequest):
+    subject_id = data.subject_id
+    file_name = data.file_name
+    file_check_id = data.file_check_id
+
+    print("File name: ", file_name)
+    
+    is_file_exist, error = check_file_in_s3(subject_id, file_name)
+    if not is_file_exist:
+        return JSONResponse(content={"message": 'Không tìm thấy file'}, status_code=404)
+
     time_start = time.time()
     try:
         file_path = read_presigned_url(subject_id, file_name)
-        requests.request("POST", url, headers=headers)
-        background_tasks.add_task(check_plagiarism_details, file_path, file_check_id, time_start)
+        print(f"Tải file thành công: {file_path}")
     except Exception as e:
-        return JSONResponse(content={"message": 'Không tìm thấy file'}, status_code=200)
-    
-    return JSONResponse(content={"message": 'Tìm thấy file'}, status_code=200)
+        print(f"Bug cmnr: {e}")
+        return JSONResponse(content={"message": 'Không tải được file'}, status_code=400)
+
+    # Run các task nặng trong background
+    loop = asyncio.get_event_loop()
+    task1 = loop.run_in_executor(None, check_plagiarism_details, file_path, file_check_id, time_start)
+    task2 = loop.run_in_executor(None, run_spell_check_sync, file_path, file_check_id, time_start)
+
+    background_tasks.add_task(asyncio.gather, task1, task2)
+
+    return JSONResponse(content={"message": 'Tải file thành công'}, status_code=200)
 
 
-# @router.post("/plagiarism_checker_details/")    
-async def check_plagiarism_details(file_path, file_check_id, time_start) -> Dict:
+  
+def check_plagiarism_details(file_path, file_check_id, time_start) -> Dict:
     min_similarity = 0.9
     url = f"{baseURL}/api/checker/files/{file_check_id}/result"
-    raw_sentences, embeddings = checker.process_document(file_path)
 
-    if not raw_sentences:
-        return {"error": "No valid raw_sentences found in document"}    
-    print(f"Number of raw_sentences processed: {len(raw_sentences)}")
     try:
         document = fitz.open(file_path)
     except Exception as e:
         print(f"Error opening PDF: {e}")
         document = None
+
+    raw_sentences, embeddings = checker.process_document(file_path)
+
+    if not raw_sentences:
+        return {"error": "No valid raw_sentences found in document"}    
+    print(f"Number of raw_sentences processed: {len(raw_sentences)}")
 
     search_params = {
         "metric_type": "COSINE",
@@ -130,9 +196,11 @@ async def check_plagiarism_details(file_path, file_check_id, time_start) -> Dict
                      reverse=True)[:5]  # Limit to top 5
     similarity_documents = []
     total_sentences = len(raw_sentences)
-    
+    total_similarity_percent = int(len(matched_sentence_set) / total_sentences * 100)
+ 
     for docs in top_docs:
         (filename, matched_sentences) = docs
+
         sentence_locations = check_box(document, matched_sentences)
         page_sentences = {}
         for sentence, locations in sentence_locations.items():
@@ -150,9 +218,23 @@ async def check_plagiarism_details(file_path, file_check_id, time_start) -> Dict
                         break
                 
                 if not found:
+                    # Lambda function to merge rectangles on the same line
+                    merge_rects = lambda rects: [
+                        [min(group, key=lambda r: r[0])[0],  # min x0
+                         min(group, key=lambda r: r[1])[1],  # min y0  
+                         max(group, key=lambda r: r[2])[2],  # max x1
+                         max(group, key=lambda r: r[3])[3]]  # max y1
+                        for group in [
+                            [rect for rect in rects if abs(rect[1] - y) < 5]  # Group by similar y-coordinate (within 5 pixels)
+                            for y in sorted(set(rect[1] for rect in rects))
+                        ] if group
+                    ]
+                    
+                    merged_rects = merge_rects(location["rects"])
+                    
                     page_sentences[page_num].append({
                         'content': sentence,
-                        'rects': location["rects"]
+                        'rects': merged_rects
                     })
 
         similarity_box_sentences = []
@@ -170,21 +252,34 @@ async def check_plagiarism_details(file_path, file_check_id, time_start) -> Dict
         
         similarity_documents.append({
             "file_resource_id": "0a58b8ab-60e7-42e3-b765-6d633a1f2d44",
-            'result': similarity_box_sentences
+            "similarity_value": similarity_value,
+            'page_result': similarity_box_sentences
         })
     time_process = time.time() - time_start
+
     result = {
         "file_check_id": file_check_id,
-        "result": similarity_documents,
-        "create_at": "2024-06-12T15:04:05Z",
+        "data_result": similarity_documents,
+        "create_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "total_similarity_percent": total_similarity_percent,
+        "height": document[0].rect.height,
+        "width": document[0].rect.width,
         "duration": time_process
     }
+    output_file = f"plagiarism_check_{file_check_id}.json"
+    with open(output_file, "w", encoding="utf-8") as f:
+        json.dump(result, f, ensure_ascii=False, indent=2)
+    print(f"plagiarism_check results saved to {output_file}")
+
     # output_file = "abcd.json"
     # with open(output_file, "w", encoding="utf-8") as f:
     #     json.dump(result, f, ensure_ascii=False, indent=2)
     headers_auth = {
         'Content-Type': 'application/json',
-        'Cookie': 'jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDMwOTExNDUsImlzcyI6Ijg0MDhhZjZkLWZlOGMtNDM4NS05N2IyLTU1MzFiNjIwM2U1OSIsInVzZXJuYW1lIjoiaGluZTEyIiwiZW1haWwiOiJoaW5lMTIiLCJyb2xlIjoic3UifQ.bnNPUsjj5ADfEgRbNL5Q7ScHsrjds1Sat31o_1rjKVw'
+        'Cookie': 'jwt='+COOKIE
     }
     response = requests.request("POST", url, headers=headers_auth, data=json.dumps(result))
+    # print("check plagiarism details thành công")
+    # response2 = requests.request("POST", url2, headers=headers_auth, data=json.dumps(spell_result))
     return {"message": "Thành công"}
+

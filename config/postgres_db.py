@@ -7,6 +7,7 @@ from sqlalchemy import text
 from config.conf import DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_HOSTNAME, DATABASE_PORT, DATABASE_NAME
 
 
+
 DATABASE_URL = f'postgresql://{DATABASE_USERNAME}:{DATABASE_PASSWORD}@{DATABASE_HOSTNAME}:{DATABASE_PORT}/{DATABASE_NAME}'
 
 engine = create_engine(
@@ -26,4 +27,5 @@ def get_db():
     finally:
         db.close()
 
-from models.model import PDFFile, Sentence
+get_db()
+# from models.model import PDFFile, Sentence
